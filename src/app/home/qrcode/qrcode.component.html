@@ -1,0 +1,54 @@
+<!-- <ion-header [style.visibility]="content_visibility">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>QR Code Scanner</ion-title> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [style.visibility]="content_visibility">
+  <ion-card class="ion-text-center" *ngIf="isHide">
+    <ion-card-content>
+      <qrcode [qrdata]="qrCodeString" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" class="ion-margin" (click)="startScan()" *ngIf="isHide">Scan QR Code</ion-button>
+  <ion-button expand="block" class="ion-margin" (click)="stopScan()" *ngIf="!isHide">Stop Scan</ion-button>
+  <ion-item *ngIf="scannedResult">
+    <ion-label class="ion-text-wrap">Scanned Result: {{scannedResult}}</ion-label>
+  </ion-item>
+</ion-content> -->
+
+<ion-header [style.visibility]="content_visibility">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>QR Code Scanner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [style.visibility]="content_visibility">
+  <div class="scanner-overlay" *ngIf="!isHide">
+    <ion-card class="ion-text-center">
+      <ion-card-content>
+        <qrcode [qrdata]="qrCodeString" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-card class="ion-text-center" *ngIf="isHide">
+    <ion-card-content>
+      <qrcode [qrdata]="qrCodeString" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" class="ion-margin" (click)="startScan()" *ngIf="isHide">Scan QR Code</ion-button>
+  <ion-button expand="block" class="ion-margin" (click)="stopScan()" *ngIf="!isHide">Stop Scan</ion-button>
+  
+  <ion-item *ngIf="scannedResult">
+    <ion-label class="ion-text-wrap">Scanned Result: {{scannedResult}}</ion-label>
+  </ion-item>
+</ion-content>
+

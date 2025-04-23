@@ -1,0 +1,159 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Home
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="presentPopover($event)">
+                <ion-icon slot="icon-only" name="ellipsis-vertical" style="color: whitesmoke"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="checkmark-done-outline"></ion-icon>
+                        <h3>Download Masters</h3>
+                        <p>11-07-2024<br>11:27 am</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="checkmark-done-outline"></ion-icon>
+                        <h3>Download Customers</h3>
+                        <p>11-07-2024<br>11:28 am</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="checkmark-done-outline"></ion-icon>
+                        <h3>Download Van Stock</h3>
+                        <p>11-07-2024<br>11:28 am</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="checkmark-done-outline"></ion-icon>
+                        <h3>Synchronization status</h3>
+                        <p>All data synchronised</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="cart-outline"></ion-icon>
+                        <h3>Shift Sales</h3>
+                        <p>2439.0</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="6">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="people-outline"></ion-icon>
+                        <h3>Customers</h3>
+                        <p>153</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="return-up-back-outline"></ion-icon>
+                        <h3>Sales Return</h3>
+                        <p>16.38</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="12">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-icon name="car-outline"></ion-icon>
+                        <h3>Request stock</h3>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+    <ion-item>
+        <ion-label>Branch</ion-label>
+        <ion-select [(ngModel)]="selectedBranch" interface="popover">
+            <ion-select-option *ngFor="let branch of branches" [value]="branch">{{ branch }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <!-- User Information Card -->
+    <ion-card>
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-icon name="person-outline" slot="start"></ion-icon>
+                <ion-button expand="block" color="danger" slot="end" (click)="closeShift()">Close Shift</ion-button>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Login User</h2>
+                    <p>{{ user.login }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Company</h2>
+                    <p>{{ user.company }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Branch</h2>
+                    <p>{{ user.branch }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Tax</h2>
+                    <p>{{ user.tax }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Van</h2>
+                    <p>{{ user.van }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Shift ID</h2>
+                    <p>{{ user.shiftId }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Shift Start</h2>
+                    <p>{{ user.shiftStart }}</p>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

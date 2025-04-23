@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon aria-hidden="true" size="small" class="ion-margin-start" (click)="backButton()" name="arrow-back-outline"
+    slot="start"></ion-icon>
+    <ion-title class="ion-text-center"> Customer Detail </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <ion-card class="ion-margin" >
+    <ion-card-header class="ion-margin" >
+      <ion-card-title>{{selectedCustomer.cName}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="card-data">
+      City : {{selectedCustomer.city}}
+     Address : {{selectedCustomer.address}}
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" class="ion-margin" (click)="viewDirection()">View Direction</ion-button>
+
+</ion-content>

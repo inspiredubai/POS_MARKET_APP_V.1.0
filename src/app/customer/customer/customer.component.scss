@@ -1,0 +1,22 @@
+.custom-fab-button {
+    --width: 40px;
+    --height: 40px;
+    margin-right: 5px;
+    width: var(--width);
+    height: var(--height);
+    border-radius: 50%; /* Ensure it's a round button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .custom-fab-icon {
+    font-size: 18px;
+  }
+  .custom-icon {
+    width: 50px; /* Adjust the width as needed */
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 8px; /* Optional: Add some spacing between the icon and button text */
+    border-radius: 20px;
+  }
+  

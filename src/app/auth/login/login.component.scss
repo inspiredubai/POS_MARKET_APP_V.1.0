@@ -1,0 +1,58 @@
+ion-content {
+	--padding-top: 15%;
+	--padding-start: 10%;
+	--padding-end: 10%;
+	--background: url('https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80')
+		0 0/100% 100% no-repeat;
+}
+
+.input-group {
+	background: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.errors {
+	font-size: small;
+	color: #fff;
+	background: var(--ion-color-danger);
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+ .ion-padding{
+    text-align: center;
+ }
+ .item-padding-bottom {
+    padding-bottom: 16px;
+  }
+//   .custom-label {
+//     font-size: 18px; /* Adjust the font size as needed */
+//   }
+  
+  :ng-deep{
+    .ion-input {
+    --padding-top: 16px;    /* Adjust the padding as needed */
+    --padding-bottom: 16px; /* Adjust the padding as needed */
+  }  
+  .ion-label{
+    font-size: 18px;
+  }
+  }
+/* Ensure the row is a flex container */
+.social-buttons {
+	display: flex;
+	justify-content: space-between;
+   }
+ /* Ensure the buttons take full height and width of the columns */
+  .social-button {
+	width: 98%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+  }
+  
+  

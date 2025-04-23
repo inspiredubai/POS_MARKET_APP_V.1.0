@@ -1,0 +1,54 @@
+// body.scanner-active {
+//     --background: transparent;
+//     --ion-background-color: transparent;
+//   }
+  /* app.component.css or a global stylesheet */
+
+body.scanner-active {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.scanner-active .scanner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.scanner-overlay ion-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.scanner-overlay ion-card-content {
+  padding: 20px;
+}
+
+.scanner-overlay qrcode {
+  margin: 20px 0;
+}
+
+ion-button {
+  --background: #3880ff;
+  --background-activated: #3171e0;
+  --background-focused: #4c8dff;
+  --border-radius: 10px;
+  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+
+ion-button.ion-margin {
+  margin: 20px 0;
+}
+
+ion-item {
+  margin-top: 20px;
+}

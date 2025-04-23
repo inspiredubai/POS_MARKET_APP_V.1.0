@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="start">Report</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="showLogin()">
+        <ion-icon name="power-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item routerLink="/sales-report">
+      <ion-icon slot="start" name="document-text-outline" color="success"></ion-icon>
+      <ion-label>Sales Report</ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item routerLink="/sales-return-report">
+      <ion-icon slot="start" name="archive-outline" color="warning"></ion-icon>
+      <ion-label>Sales Return Report</ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item routerLink="/sales-order-report">
+      <ion-icon slot="start" name="newspaper-outline" color="tertiary"></ion-icon>
+      <ion-label>Sales Order Report</ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item routerLink="/receipt-report">
+      <ion-icon slot="start" name="receipt-outline" color="primary"></ion-icon>
+      <ion-label>Receipt Report</ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item routerLink="/stock-report"> 
+      <ion-icon slot="start" name="newspaper-outline" color="primary"></ion-icon>
+      <ion-label>Stock Report</ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

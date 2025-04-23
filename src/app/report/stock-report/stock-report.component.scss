@@ -1,0 +1,63 @@
+ion-card-title {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    
+  }
+  .label-floating.sc-ion-label-md-h {
+    font-size: 14px;
+}
+  ion-select, ion-input {
+    margin-top: 10px;
+   }
+  
+  ion-button {
+    margin-top: 20px; 
+  }
+  // .table-wrapper {
+  //   overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  // }
+  
+  .ionic-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px; /* Adjust font size as needed */
+    text-align: left;
+  }
+  
+  .ionic-table th,
+  .ionic-table td {
+    padding: 10px 12px;
+  }
+  
+  .ionic-table thead tr {
+    background-color: #0054e9; /* Header background color */
+    color: whitesmoke; /* Header text color */
+  }
+  
+  .ionic-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
+  }
+  
+  // @media (max-width: 767px) {
+  //   .table-wrapper {
+  //     // overflow-x: scroll; /* Enable horizontal scrolling on smaller screens */
+  //     // -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+  //   }
+  
+  //   .ionic-table {
+  //     min-width: 600px; /* Set a minimum width for the table */
+  //   }
+  // }
+   .col-si{
+width: 65px;
+   }
+   .col-name{
+width: 160px;
+   }
+   .col-qty{
+    width: 60px;
+   }
+   .col-amount{
+width: 85px;
+   }

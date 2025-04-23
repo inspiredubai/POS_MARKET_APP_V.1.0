@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/customer"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center"> Find Location </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+
+  <ion-searchbar (keyup.enter)="filterByCity()" [(ngModel)]="searchCity" show-clear-button="always" ></ion-searchbar>
+
+  @for (user of filteredCustomers; track $index) {
+    <ion-card class="ion-margin" >
+      <ion-card-header class="ion-margin" >
+        <ion-card-title>{{user.cName}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="card-data">
+       Address : {{user.address}}
+       <ion-button (click)="details(user.userid)">Details</ion-button>
+
+      </ion-card-content>
+    </ion-card>
+  }
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "POS_Market",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

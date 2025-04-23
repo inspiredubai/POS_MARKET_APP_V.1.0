@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/customerdetail"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sales Return - Item Wise</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card-header>
+    <ion-card-title>ABU SHABAS GROCERY</ion-card-title>
+  </ion-card-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Product</ion-label>
+          <ion-select placeholder="Select Product">
+            <!-- Options go here -->
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Barcode</ion-label>
+          <ion-input placeholder="Barcode"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">MRP</ion-label>
+          <ion-input placeholder="MRP"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Return Rate</ion-label>
+          <ion-input placeholder="Return Rate"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Total</ion-label>
+          <ion-input placeholder="Total"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Quantity</ion-label>
+          <ion-input placeholder="Quantity"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item>
+    <ion-label position="stacked">Received</ion-label>
+    <ion-input placeholder="Received"></ion-input>
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" size-md="4" size-sm="6" size-lg="6">
+        <ion-item>
+          <ion-label position="stacked">Excl VAT</ion-label>
+          <ion-input placeholder="Excl VAT"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" size-md="4" size-sm="6" size-lg="6">
+        <ion-item>
+          <ion-label position="stacked">VAT</ion-label>
+          <ion-input placeholder="VAT"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" size-md="4" size-sm="6" size-lg="6">
+        <ion-item>
+          <ion-label position="stacked">Total</ion-label>
+          <ion-input placeholder="Total"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Remark</ion-label>
+          <ion-input placeholder="Remark"></ion-input>
+        </ion-item>
+        </ion-col>
+        <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Payment Method</ion-label>
+          <ion-select placeholder="Cash">
+            <ion-select-option value="cash">Cash</ion-select-option>
+            <ion-select-option value="card">Card</ion-select-option>
+            <ion-select-option value="online">Online</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button expand="block" color="primary">SAVE</ion-button>
+</ion-content>

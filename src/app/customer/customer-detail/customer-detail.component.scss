@@ -1,0 +1,102 @@
+// ion-card {
+//     margin: 16px;
+//     --border-radius: 8px;
+//   }
+  
+//   ion-card-title {
+//     font-size: 1.5em;
+//     text-align: center;
+//   }
+  
+//   ion-card-content {
+//     font-size: 1.1em;
+//   }
+  
+//   ion-grid {
+//     padding: 16px;
+//   }
+  
+//   ion-button {
+//     --border-radius: 8px;
+//     --padding-start: 16px;
+//     --padding-end: 16px;
+//     ion-icon {
+//       margin-right: 8px;
+//     }
+//   }
+.paracontent{
+  text-align: left;
+}
+ion-card-title{
+  text-align: center;
+}
+ion-card {
+  text-align: center;
+  --ion-card-background: #e0f7fa;
+  --ion-card-border-radius: 8px;
+  margin: 8px 0;
+}
+
+ion-icon {
+  font-size: 36px;
+  color: var(--ion-color-primary);
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+p {
+  font-size: 14px;
+  color: gray;
+} 
+.equal-card {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+ion-col {
+  display: flex;
+}
+
+ion-col ion-card {
+  flex: 1;
+  margin: 8px;
+}
+
+/* Different light background colors for each card */
+.light-blue {
+  --background: #b3e5fc; /* Light Blue */
+}
+
+.light-green {
+  --background: #c8e6c9; /* Light Green */
+}
+
+.light-yellow {
+  --background: #fff9c4; /* Light Yellow */
+}
+
+.light-purple {
+  --background: #e1bee7; /* Light Purple */
+}
+
+.light-lime {
+  --background: #dcedc8; /* Light Lime */
+}
+
+.light-pink {
+  --background: #f8bbd0; /* Light Pink */
+}

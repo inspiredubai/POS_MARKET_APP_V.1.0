@@ -1,0 +1,19 @@
+ion-list {
+    background-color: linen;
+  }
+  
+  ion-item {
+    --ion-background-color: transparent;  
+    --min-height: 44px; 
+    --padding-start: 16px;  
+    --padding-end: 16px;  
+    --color: #000;  
+  }
+  
+ 
+  ion-icon {
+    font-size: 36px;
+    color: #0054e9;
+    margin-bottom: 8px;
+    font-size: 2rem;
+  }

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/report"></ion-back-button>
+    </ion-buttons>
+    <ion-title slot="start">Stock Report</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="funnel-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+ <ion-card>
+  <ion-grid style="background-color: #e0f7fa;">
+    <ion-row>
+      <ion-col size="12" size-md="12" size-lg="12" size-sm="12" size-xs="12">
+        <div class="table-wrapper">
+          <table class="ionic-table">
+            <thead>
+              <tr>
+                <th class="col-si">item</th>
+                <th class="col-name">Name</th>
+                <th class="col-qty">Quantity</th>
+               </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-si">1anyy</td>
+                <td class="col-name">dgsfhfm</td>
+                <td class="col-qty">1</td>
+               </tr>
+              <tr>
+                <td class="col-si">2anyy</td>
+                <td class="col-name">hgdfhfsd</td>
+                <td class="col-qty">1</td>
+               </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </ion-card>
+</ion-content>
+ 
