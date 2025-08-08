@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CustomerComponent } from './customer/customer.component';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { SalesComponent } from './sales/sales.component';
 import { BillWiseReceiptComponent } from './bill-wise-receipt/bill-wise-receipt.component';
@@ -16,7 +16,8 @@ import { LocationDetailsComponent } from './location.details/location.details.co
 @NgModule({
   
   declarations: [CustomerComponent,CustomerDetailComponent,SalesComponent,BillWiseReceiptComponent,ItemWiseSalesReturnComponent,LocationDetailsComponent,MapComponent],
-  imports: [IonicModule, FormsModule,CommonModule, RouterModule.forChild([{ path: '', component: CustomerComponent },
+  imports: [IonicModule, FormsModule,CommonModule, 
+    ReactiveFormsModule, RouterModule.forChild([{ path: '', component: CustomerComponent },
   {path:'billwisereceipt', component:BillWiseReceiptComponent},
 {path:'itemwisesalesreturn', component:ItemWiseSalesReturnComponent},
   {path:'map', component:MapComponent},

@@ -7,7 +7,247 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-card>
+     <form [formGroup]="salesForm">
+       <ion-card>
+        <ion-card-header>
+          <ion-card-title>ABU SHABA GROCERY</ion-card-title>
+          <ion-select interface="popover" placeholder="Retail" formControlName="mode">
+            <ion-select-option value="retail">Retail</ion-select-option>
+            <ion-select-option value="wholesale">Wholesale</ion-select-option>
+          </ion-select>
+        </ion-card-header>
+
+         <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Select Product</ion-label>
+                  <ion-select interface="popover" placeholder="(No Stock)" formControlName="product">
+                    <ion-select-option value="product1">Product 1</ion-select-option>
+                    <ion-select-option value="product2">Product 2</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Barcode</ion-label>
+                  <ion-input type="text" formControlName="barcode"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+           <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">MRP</ion-label>
+                  <ion-input type="text" formControlName="mrp"></ion-input>
+                   <div class="error" *ngIf="f['mrp']?.touched && f['mrp']?.invalid">
+                        <small class="p-error" style="margin-left:100; color: red;">MRP is required</small>
+                    </div>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Cut Off Rate</ion-label>
+                  <ion-input type="text" formControlName="cutOffRate"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Discount %</ion-label>
+                  <ion-input type="text" formControlName="discountPercent"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Unit Excl V</ion-label>
+                  <ion-input type="text" formControlName="unitExclV"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">FOC</ion-label>
+                  <ion-input type="text" formControlName="foc"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Discount Amount</ion-label>
+                  <ion-input type="text" formControlName="discountAmount"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Unit Incl V</ion-label>
+                  <ion-input type="text" formControlName="unitInclV"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Quantity</ion-label>
+                  <ion-input type="text" formControlName="quantity"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" size-md="5">
+                <ion-item>
+                  <ion-label position="floating">VAT %</ion-label>
+                  <ion-input type="text" formControlName="vatPercent"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="5">
+                <ion-item>
+                  <ion-label position="floating">Total</ion-label>
+                  <ion-input type="text" formControlName="total"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="2">
+                <ion-button expand="block" color="primary">Add</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+       <ion-card-header>
+        <ion-card-title style="font-weight: bold; font-size: 18px;">Sales Detail</ion-card-title>
+      </ion-card-header>
+      <ion-grid style="background-color: #e0f7fa;">
+        <ion-row>
+          <ion-col size="12">
+            <table class="ionic-table">
+              <thead>
+                <tr>
+                  <th>SI_No</th>
+                  <th>Item_Name</th>
+                  <th>Qty</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Item A</td>
+                  <td>2</td>
+                  <td>$20.00</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Item B</td>
+                  <td>1</td>
+                  <td>$10.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+       <ion-card>
+        <ion-card-content>
+          <ion-grid>
+
+             <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Discount %</ion-label>
+                  <ion-input type="number" formControlName="summaryDiscountPercent"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">VAT Excl</ion-label>
+                  <ion-input type="number" formControlName="vatExcl"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Tendered Amount</ion-label>
+                  <ion-input type="number" formControlName="tenderedAmount"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+             <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Discount Amount</ion-label>
+                  <ion-input type="number" formControlName="summaryDiscountAmount" readonly></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">VAT</ion-label>
+                  <ion-input type="number" formControlName="vat" readonly></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item>
+                  <ion-label position="floating">Card Received</ion-label>
+                  <ion-input type="number" formControlName="cardReceived"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+             <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Balance</ion-label>
+                  <ion-input type="number" formControlName="balance" readonly></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Total</ion-label>
+                  <ion-input type="number" formControlName="summaryTotal" readonly></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Added to Credit</ion-label>
+                  <ion-input type="number" formControlName="addedToCredit"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+             <ion-row>
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="floating">Remark</ion-label>
+                  <ion-textarea formControlName="remark"></ion-textarea>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+             <ion-row>
+              <ion-col size="12" size-md="10">
+                <ion-item lines="none">
+                  <ion-checkbox slot="start" formControlName="printInvoice"></ion-checkbox>
+                  <ion-label>Print Invoice</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="2">
+                <ion-button expand="block" color="primary">SAVE</ion-button>
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </form>
+ 
+  <!-- <ion-card>
     <ion-card-header>
       <ion-card-title>ABU SHABA GROCERY</ion-card-title>
       <ion-select interface="popover" placeholder="Retail">
@@ -22,8 +262,7 @@
             <ion-item>
               <ion-label position="floating">Select Product</ion-label>
               <ion-select interface="popover" placeholder="(No Stock)">
-                <!-- Add your product options here -->
-                <ion-select-option value="product1">Product 1</ion-select-option>
+                 <ion-select-option value="product1">Product 1</ion-select-option>
                 <ion-select-option value="product2">Product 2</ion-select-option>
               </ion-select>
             </ion-item>
@@ -143,8 +382,7 @@
                 <td class="col-qty">1</td>
                 <td class="col-amount">$10.00</td>
               </tr>
-              <!-- Add more rows as needed -->
-            </tbody>
+             </tbody>
           </table>
         </div>
       </ion-col>
@@ -154,8 +392,7 @@
     <ion-card-content>
       <ion-grid>
 
-        <!-- First Row -->
-        <ion-row>
+         <ion-row>
           <ion-col size="12" size-md="4" size-sm="4">
             <ion-item>
               <ion-label position="floating">Discount %</ion-label>
@@ -176,8 +413,7 @@
           </ion-col>
         </ion-row>
 
-        <!-- Second Row -->
-        <ion-row>
+         <ion-row>
           <ion-col size="12" size-md="6" size-sm="6">
             <ion-item>
               <ion-label position="floating">Discount Amount</ion-label>
@@ -198,8 +434,7 @@
           </ion-col>
         </ion-row>
 
-        <!-- Third Row -->
-        <ion-row>
+         <ion-row>
           <ion-col size="12" size-md="4" size-sm="4">
             <ion-item>
               <ion-label position="floating">Balance</ion-label>
@@ -220,8 +455,7 @@
           </ion-col>
         </ion-row>
 
-        <!-- Fourth Row -->
-        <ion-row>
+         <ion-row>
           <ion-col size="12">
             <ion-item>
               <ion-label position="floating">Remark</ion-label>
@@ -230,8 +464,7 @@
           </ion-col>
         </ion-row>
 
-        <!-- Fifth Row -->
-        <ion-row>
+         <ion-row>
           <ion-col size="12" size-md="10">
             <ion-item lines="none">
               <ion-checkbox slot="start"></ion-checkbox>
@@ -245,5 +478,5 @@
 
       </ion-grid>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 </ion-content>
