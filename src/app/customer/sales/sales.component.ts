@@ -1,16 +1,24 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { VansalesService } from 'src/app/service/vansales.service';
 
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss'],
+      standalone: true,
+   imports: [CommonModule, IonicModule, FormsModule,HttpClientModule,ReactiveFormsModule],
+   providers: [VansalesService ], 
 })
 export class SalesComponent implements OnInit {
-
   salesForm: any;
+    products: any[] = [];
+  allItems: any;
 
-  constructor(private fb: FormBuilder) {
+   constructor(private fb: FormBuilder,private vansales: VansalesService) {
 
 
   }
@@ -42,6 +50,7 @@ export class SalesComponent implements OnInit {
       remark: [''],
       printInvoice: [false],
     });
+    this.getItems()
   }
   get f() {
     return this.salesForm.controls;
@@ -54,4 +63,41 @@ export class SalesComponent implements OnInit {
     }
     console.log("form value",this.salesForm.value)
   }
+   openItem() {
+    this.getItems();
+  }
+getItems()  {
+     this.vansales.getItems().subscribe((response: any) => {
+      
+      if (response.result) {
+
+        this.allItems = response.map((data:any) => ({
+          label: data.itemMasterItemName,
+          value: data.itemMasterItemId,
+          
+        }))
+        this.allItems.unshift({ label: '--Select--', value: -1 });
+      }
+
+    })
+    console.log("allItems", this.allItems)
+debugger 
+  }
+  // getItems() {
+  //   this.vansales.getItems().subscribe({
+  //     next: (res: any) => {
+  //       console.log('res', res);
+  //       this.products = res;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching items', err);
+  //     }
+  //   });
+  // }
+
+  // getItems(){
+  //   this.vansales.getItems().subscribe((res) => {
+  //     console.log('res', res)
+  //   })
+  // }
 }

@@ -15,7 +15,7 @@ import { LocationDetailsComponent } from './location.details/location.details.co
 
 @NgModule({
   
-  declarations: [CustomerComponent,CustomerDetailComponent,SalesComponent,BillWiseReceiptComponent,ItemWiseSalesReturnComponent,LocationDetailsComponent,MapComponent],
+  declarations: [CustomerComponent,CustomerDetailComponent,BillWiseReceiptComponent,ItemWiseSalesReturnComponent,LocationDetailsComponent,MapComponent],
   imports: [IonicModule, FormsModule,CommonModule, 
     ReactiveFormsModule, RouterModule.forChild([{ path: '', component: CustomerComponent },
   {path:'billwisereceipt', component:BillWiseReceiptComponent},
