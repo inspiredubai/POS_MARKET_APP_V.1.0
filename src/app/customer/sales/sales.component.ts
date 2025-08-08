@@ -16,10 +16,11 @@ export class SalesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.salesForm = this.fb.group({
+     this.salesForm = this.fb.group({
       mode: ['retail'],
-      product: [''],
-      mrp: [' ', Validators.required],
+      product: ['', Validators.required],
+      barcode: [''],
+      mrp: ['', Validators.required],
       cutOffRate: [''],
       discountPercent: [''],
       unitExclV: [''],
@@ -44,5 +45,13 @@ export class SalesComponent implements OnInit {
   }
   get f() {
     return this.salesForm.controls;
+  }
+    addItem() {
+      debugger
+    if (this.salesForm.invalid) {
+      this.salesForm.markAllAsTouched();
+      return;
+    }
+    console.log("form value",this.salesForm.value)
   }
 }
