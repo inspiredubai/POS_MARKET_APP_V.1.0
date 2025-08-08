@@ -56,7 +56,6 @@ export class SalesComponent implements OnInit {
     return this.salesForm.controls;
   }
     addItem() {
-      debugger
     if (this.salesForm.invalid) {
       this.salesForm.markAllAsTouched();
       return;
@@ -64,14 +63,14 @@ export class SalesComponent implements OnInit {
     console.log("form value",this.salesForm.value)
   }
    openItem() {
-    this.getItems();
+    // this.getItems();
   }
 getItems()  {
      this.vansales.getItems().subscribe((response: any) => {
       
       if (response.result) {
 
-        this.allItems = response.map((data:any) => ({
+        this.allItems = response.result?.map((data:any) => ({
           label: data.itemMasterItemName,
           value: data.itemMasterItemId,
           
@@ -80,8 +79,6 @@ getItems()  {
       }
 
     })
-    console.log("allItems", this.allItems)
-debugger 
   }
   // getItems() {
   //   this.vansales.getItems().subscribe({
