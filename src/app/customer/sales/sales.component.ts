@@ -166,7 +166,7 @@ export class SalesComponent implements OnInit {
         detailId: 0,
         salesId: 0,
         sI_No: index + 1,
-        item_Name: detail.item_Name,
+        item_Name: detail.product,
         qty: detail.qty,
         amount: detail.amount,
         createdDate: new Date().toISOString()
@@ -182,7 +182,6 @@ export class SalesComponent implements OnInit {
       error: (err) => {
         console.error("Error saving", err);
         this.toastService.show('Something wentrong', 'danger');
-
         this.loading = false;
       }
     });
