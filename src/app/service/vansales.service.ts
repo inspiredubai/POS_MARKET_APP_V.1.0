@@ -11,7 +11,15 @@ export class VansalesService {
   constructor(private httpClient: HttpClient) { } 
 
    public getItems() {
-    return this.httpClient.get(this.baseUrl + 'master/item/GetAllItem');
+    return this.httpClient.get(this.baseUrl + 'master/item/GetAllItemMaster_withUnit');
   }
+ public save(item: any) {
+  return this.httpClient.post(this.baseUrl + 'SalesVoucher/insertVanSales', item);
+}
+public getItemById(id: number) {
+  return this.httpClient.get(`${this.baseUrl}master/item/GetAllItemMasterById/${id}`);
+}
+
+
 }
  
