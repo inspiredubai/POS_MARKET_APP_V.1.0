@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { VansalesService } from 'src/app/service/vansales.service';
 
@@ -17,7 +17,7 @@ export class SalesComponent implements OnInit {
   salesForm: any;
     products: any[] = [];
   allItems: any;
-
+  tableData: any[] = [];
    constructor(private fb: FormBuilder,private vansales: VansalesService) {
 
 
@@ -51,10 +51,12 @@ export class SalesComponent implements OnInit {
       printInvoice: [false],
     });
     this.getItems()
+    
   }
-  get f() {
-    return this.salesForm.controls;
-  }
+  
+ get f(): { [key: string]: AbstractControl } {
+  return this.salesForm.controls;
+}
     addItem() {
     if (this.salesForm.invalid) {
       this.salesForm.markAllAsTouched();
@@ -79,7 +81,28 @@ getItems()  {
       }
 
     })
+    
   }
+  
+  onAdd() {
+    if (this.salesForm.valid) {
+      const newRow = {
+        si_no: this.tableData.length + 1,
+        item_name: this.salesForm.value.product,
+        qty: this.salesForm.value.quantity,
+        amount: this.salesForm.value.total
+      };
+
+      this.tableData.push(newRow);
+      this.salesForm.reset(); // Clear form after adding
+    } else {
+      Object.values(this.f).forEach(control => {
+        control.markAsTouched();
+      });
+    }
+    
+  }
+  
   // getItems() {
   //   this.vansales.getItems().subscribe({
   //     next: (res: any) => {
