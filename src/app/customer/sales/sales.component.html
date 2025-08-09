@@ -23,16 +23,13 @@
               <ion-col size="12" size-md="6">
                 <ion-item>
                   <ion-label position="floating">Select Product</ion-label>
-                  <ion-select 
-  interface="popover" 
-  placeholder="(No Stock)" 
-  formControlName="product"
-  (ionChange)="onProductChange($event)">
-  
-  <ion-select-option *ngFor="let p of allItems" [value]="p">
-    {{ p.displayName }}
-  </ion-select-option>
-</ion-select>
+                  <ion-select interface="popover" placeholder="(No Stock)" formControlName="product"
+                    (ionChange)="onProductChange($event)">
+
+                    <ion-select-option *ngFor="let p of allItems" [value]="p">
+                      {{ p.displayName }}
+                    </ion-select-option>
+                  </ion-select>
 
                 </ion-item>
               </ion-col>
@@ -50,7 +47,7 @@
               <ion-col size="12" size-md="6">
                 <ion-item>
                   <ion-label position="floating">MRP</ion-label>
-                  <ion-input type="text" formControlName="mrp" readonly ></ion-input>
+                  <ion-input type="text" formControlName="mrp" readonly></ion-input>
                   <div class="error" *ngIf="f['mrp']?.touched && f['mrp']?.invalid">
                     <small class="p-error" style="margin-left:100; color: red;">MRP is required</small>
                   </div>
@@ -240,10 +237,10 @@
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="2">
-              <ion-button expand="block" color="primary" (click)="addItem()" [disabled]="loading">
-                <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
-                <span *ngIf="!loading">SAVE</span>
-              </ion-button>
+                <ion-button expand="block" color="primary" (click)="addItem()" [disabled]="loading">
+                  <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+                  <span *ngIf="!loading">SAVE</span>
+                </ion-button>
 
               </ion-col>
             </ion-row>
