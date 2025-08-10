@@ -21,6 +21,7 @@ export class SalesComponent implements OnInit {
   salesDetails: any;
   tableData: any[] = [];
   loading = false;
+  MrpValue: any;
   constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService
@@ -64,42 +65,32 @@ export class SalesComponent implements OnInit {
 
   this.getItems();
 
-  // ===== Auto calculation logic =====
-  this.salesForm.get('discountPercent')?.valueChanges.subscribe((val: number | string) => {
-    if (val !== null && val !== undefined && val !== '') {
-      const mrp = +this.salesForm.get('mrp')?.value || 0;
-      const percent = Number(val) || 0;
-      const discountAmount = (mrp * percent) / 100;
-      this.salesForm.patchValue({
-        discountAmount: discountAmount,
-        total: mrp - discountAmount
-      }, { emitEvent: false });
-    }
-  });
+  this.salesForm.valueChanges.subscribe((values: { mrp: string; cutOffRate: string; discountPercent: string; quantity: string; vatPercent: string; }) => {
+    const mrp = parseFloat(values.mrp) || 0;
+    const cutOffRate = parseFloat(values.cutOffRate) || 0;
+    const discountPercent = parseFloat(values.discountPercent) || 0;
+    const quantity = parseFloat(values.quantity) || 0;
+    const vatPercent = parseFloat(values.vatPercent) || 0;
 
-  this.salesForm.get('discountAmount')?.valueChanges.subscribe((val: number | string) => {
-    if (val !== null && val !== undefined && val !== '') {
-      const mrp = +this.salesForm.get('mrp')?.value || 0;
-      const amount = Number(val) || 0;
-      const percent = mrp ? (amount / mrp) * 100 : 0;
-      this.salesForm.patchValue({
-        discountPercent: percent,
-        total: mrp - amount
-      }, { emitEvent: false });
-    }
-  });
+    const discountAmount = mrp * (discountPercent / 100);
 
-  this.salesForm.get('quantity')?.valueChanges.subscribe((qty: number | string) => {
-    if (qty !== null && qty !== undefined && qty !== '') {
-      const mrp = +this.salesForm.get('mrp')?.value || 0;
-      const quantity = Number(qty) || 0;
-      const total = mrp * quantity;
-      this.salesForm.patchValue({
-        total: total
-      }, { emitEvent: false });
+    let unitInclV = mrp - discountAmount;
+    if (cutOffRate > 0) {
+      unitInclV = cutOffRate;
     }
+
+    const unitExclV = unitInclV / (1 + vatPercent / 100);
+
+    const total = unitInclV * quantity;
+
+    this.salesForm.patchValue({
+      discountAmount: discountAmount.toFixed(2),
+      unitInclV: unitInclV.toFixed(2),
+      unitExclV: unitExclV.toFixed(2),
+      total: total.toFixed(2)
+    }, { emitEvent: false });
   });
-}
+ }
 
 
   get f(): { [key: string]: AbstractControl } {
@@ -134,11 +125,13 @@ export class SalesComponent implements OnInit {
     })
   }
   save() {
+    debugger
     this.loading = true;
+     this.salesDetails=this.tableData;
     const payload = {
       salesId: 0,
       mode: this.salesForm.value.mode,
-      product: this.salesForm.value.product.label,
+      product: this.salesForm.value.product?.displayName,
       barcode: this.salesForm.value.barcode,
       mrp: this.salesForm.value.mrp,
       cutOffRate: this.salesForm.value.cutOffRate,
@@ -166,13 +159,13 @@ export class SalesComponent implements OnInit {
         detailId: 0,
         salesId: 0,
         sI_No: index + 1,
-        item_name: detail.product,
+        item_name: detail.displayName,
         qty: detail.qty,
         amount: detail.amount,
         createdDate: new Date().toISOString()
       }))
     };
-    console.log("payload", payload)
+   
     this.vansales.save(payload).subscribe({
       next: (res) => {
         console.log("Saved successfully", res);
@@ -190,7 +183,7 @@ export class SalesComponent implements OnInit {
     if (this.salesForm.valid) {
       const newRow = {
         si_no: this.tableData.length + 1,
-        item_name: this.salesForm.value.product,
+        item_name: this.salesForm.value.product.displayName,
         qty: this.salesForm.value.quantity,
         amount: this.salesForm.value.total
       };
@@ -208,18 +201,6 @@ export class SalesComponent implements OnInit {
     const selectedProduct = event.detail.value;
     if (selectedProduct) {
       this.salesForm.get('mrp')?.setValue(selectedProduct.rate);
-      this.salesForm.get('unitInclV')?.setValue(selectedProduct.rate);
-
-
-      //     this.vansales.getItemById(selectedProduct.value).subscribe({
-      //   next: (res) => {
-      //     console.log('Item details:', res);
-      //   },
-      //   error: (err) => {
-      //     console.error('Error fetching item:', err);
-      //   }
-      // });
-
     }
   }
 
