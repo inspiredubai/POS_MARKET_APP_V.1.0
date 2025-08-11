@@ -29,6 +29,7 @@ export class SalesComponent implements OnInit {
   loading = false;
   MrpValue: any;
   sales: any
+     isUpdating = false;
   constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService
@@ -95,21 +96,51 @@ export class SalesComponent implements OnInit {
     }, { emitEvent: false });
   });
 
+     const vatRate = 0.05;
 
- this.sales = {
-      salesId: 18,
-      mode: "retail",
-      remark: "ok",
-      createdDate: "2025-08-11T03:03:10.51Z",
-      summaryDiscountPercent: 5,
-      vatExcl: 9,
-      tenderedAmount: 7,
-      cardReceived: 88,
-      details: [
-        { sI_No: 1, item_Name: "Item1-Pcs", qty: 8, amount: 168.00 },
-        { sI_No: 2, item_Name: "testtdd fgh fghdfghdfgh 22-box", qty: 8, amount: 120.00 }
-      ]
-    };
+    this.salesForm.valueChanges.subscribe((values: { tenderedAmount: string; summaryDiscountPercent: string; cardReceived: string; }) => {
+      if (this.isUpdating) return;
+      this.isUpdating = true;
+
+      const tenderedAmount = parseFloat(values.tenderedAmount) || 0;
+      const discountPercent = parseFloat(values.summaryDiscountPercent) || 0;
+      const cardReceived = parseFloat(values.cardReceived) || 0;
+
+      let discountAmount = 0;
+      let total = tenderedAmount;
+      let vat = 0;
+      let vatExcl = 0;
+      let balance = 0;
+
+      // STEP 1: Calculate discount amount
+      if (tenderedAmount > 0 && discountPercent > 0) {
+        discountAmount = tenderedAmount * (discountPercent / 100);
+      }
+
+      // STEP 2: Apply discount to total
+      total = tenderedAmount - discountAmount;
+
+      // STEP 3: Calculate VAT (5%)
+      vat = total * vatRate;
+
+      // STEP 4: VAT Exclusive (Total - VAT)
+      vatExcl = total - vat;
+
+      // STEP 5: Calculate balance after card payment
+      balance = total - cardReceived;
+
+      // Patch the calculated fields
+      this.salesForm.patchValue({
+        discountAmount: discountAmount.toFixed(2),
+        summaryTotal: total.toFixed(2),
+        vat: vat.toFixed(2),
+        vatExcl: vatExcl.toFixed(2),
+        balance: balance.toFixed(2)
+      }, { emitEvent: false });
+
+      this.isUpdating = false;
+    });
+  
 
  }
 
@@ -191,6 +222,7 @@ export class SalesComponent implements OnInit {
         console.log("Saved successfully", res);
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
+        debugger
         if(res.printInvoice){
         this.downloadPDF(res)
         }
@@ -202,6 +234,32 @@ export class SalesComponent implements OnInit {
       }
     });
   }
+  // Example: Calculate sum of 'amount' from tableData
+getTotalAmount() {
+  debugger
+  if (!this.tableData || this.tableData.length === 0) {
+    this.salesForm.patchValue({
+      tenderedAmount: 0,
+      summaryTotal: 0
+    }, { emitEvent: false });
+    return 0;
+  }
+
+  const totalAmount = this.tableData.reduce(
+    (sum, item) => sum + (parseFloat(item.amount) || 0),
+    0
+  );
+
+  // Update form values without triggering valueChanges again
+  this.salesForm.patchValue({
+    tenderedAmount: totalAmount,
+    summaryTotal: totalAmount
+  }, { emitEvent: false });
+
+  return totalAmount;
+}
+
+
   onAdd() {
     if (this.salesForm.valid) {
       const newRow = {
@@ -212,7 +270,18 @@ export class SalesComponent implements OnInit {
       };
 
       this.tableData.push(newRow);
+      const tenderedAmountValue = this.salesForm.get('tenderedAmount')?.value;
+      const summaryTotalValue = this.salesForm.get('summaryTotal')?.value;
+
       this.salesForm.reset();
+
+    this.salesForm.patchValue({
+  tenderedAmount: tenderedAmountValue,
+  summaryTotal: summaryTotalValue
+});
+
+      this.getTotalAmount()
+     // this.salesForm.reset();
     } else {
       Object.values(this.f).forEach(control => {
         control.markAsTouched();
@@ -229,45 +298,14 @@ export class SalesComponent implements OnInit {
     }
   }
 
-// downloadPDF() {
-//     const docDefinition: any = {
-//       content: [
-//         { text: 'Sales Report', style: 'header' },
-//         { text: `Sales ID: ${this.sales.salesId}`, style: 'subheader' },
-//         { text: `Mode: ${this.sales.mode}` },
-//         { text: `Remark: ${this.sales.remark}` },
-//         { text: `Created Date: ${new Date(this.sales.createdDate).toLocaleString()}` },
-//         { text: `Summary Discount %: ${this.sales.summaryDiscountPercent}%` },
-//         { text: `VAT Excl: ${this.sales.vatExcl}` },
-//         { text: `Tendered Amount: ${this.sales.tenderedAmount}` },
-//         { text: `Card Received: ${this.sales.cardReceived}` },
-//         { text: ' ', margin: [0, 10] },
 
-//         {
-//           table: {
-//             headerRows: 1,
-//             widths: ['auto', '*', 'auto', 'auto'],
-//             body: [
-//               ['#', 'Item Name', 'Qty', 'Amount'],
-//               ...this.sales.details.map((d: any) => [
-//                 d.sI_No,
-//                 d.item_Name,
-//                 d.qty,
-//                 { text: d.amount.toFixed(2), alignment: 'right' }
-//               ])
-//             ]
-//           }
-//         }
-//       ],
-//       styles: {
-//         header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] },
-//         subheader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5] }
-//       }
-//     };
+downloadPDF(data: any) {
+  const subtotal = data.details?.reduce((sum: number, d: any) => sum + (d.amount || 0), 0) || 0;
+  const total = subtotal;
+  const vatExcl = data.vatExcl || 0;
+  const tenderedAmount = data.tenderedAmount || 0;
+  const cardReceived = data.cardReceived || 0;
 
-//     pdfMake.createPdf(docDefinition).download(`SalesReport_${this.sales.salesId}.pdf`);
-//   }
-downloadPDF(data:any) {
   const docDefinition: any = {
     pageSize: 'A4',
     pageMargins: [40, 60, 40, 60],
@@ -275,7 +313,7 @@ downloadPDF(data:any) {
       // HEADER
       {
         columns: [
-          { text: 'My Store Name', style: 'invoiceTitle' },
+          { text: 'VAN SALE', style: 'invoiceTitle' },
           {
             stack: [
               { text: `Invoice #${data.salesId}`, style: 'invoiceNumber' },
@@ -287,24 +325,14 @@ downloadPDF(data:any) {
       },
       { text: '\n' },
 
-      // CUSTOMER / ORDER INFO
+      // ORDER INFO ONLY
       {
         columns: [
           {
-            width: '50%',
+            width: '100%',
             stack: [
-              { text: 'Sold To:', bold: true },
-              { text: 'Customer Name Here' },
-              { text: '123 Street Name' },
-              { text: 'City, Country' }
-            ]
-          },
-          {
-            width: '50%',
-            stack: [
-              { text: 'Details:', bold: true },
-              { text: `Mode: ${this.sales.mode}` },
-              { text: `Remark: ${this.sales.remark}` }
+              { text: `Mode: ${data.mode || ''}`, bold: true },
+              { text: `Remark: ${data.remark || ''}` }
             ]
           }
         ]
@@ -323,11 +351,11 @@ downloadPDF(data:any) {
               { text: 'Qty', style: 'tableHeader', alignment: 'right' },
               { text: 'Amount', style: 'tableHeader', alignment: 'right' }
             ],
-            ...data.details.map((d: any) => [
-              d.sI_No,
-              d.item_Name,
-              { text: d.qty, alignment: 'right' },
-              { text: Number(d.amount).toFixed(2), alignment: 'right' }
+            ...(data.details || []).map((d: any) => [
+              d.sI_No || '',
+              d.item_Name || '',
+              { text: d.qty || 0, alignment: 'right' },
+              { text: (d.amount || 0).toFixed(2), alignment: 'right' }
             ])
           ]
         },
@@ -348,11 +376,11 @@ downloadPDF(data:any) {
             table: {
               widths: ['*', 'auto'],
               body: [
-                ['Subtotal', data.details.reduce((sum: number, d: any) => sum + d.amount, 0).toFixed(2)],
-                ['VAT Excl', data.vatExcl.toFixed(2)],
-                ['Tendered Amount', data.tenderedAmount.toFixed(2)],
-                ['Card Received', data.cardReceived.toFixed(2)],
-                [{ text: 'Total', bold: true }, { text: data.details.reduce((sum: number, d: any) => sum + d.amount, 0).toFixed(2), bold: true }]
+                ['Subtotal', subtotal.toFixed(2)],
+                ['VAT Excl', vatExcl.toFixed(2)],
+                ['Tendered Amount', tenderedAmount.toFixed(2)],
+                ['Card Received', cardReceived.toFixed(2)],
+                [{ text: 'Total', bold: true }, { text: total.toFixed(2), bold: true }]
               ]
             },
             layout: 'lightHorizontalLines'
@@ -371,8 +399,9 @@ downloadPDF(data:any) {
     }
   };
 
-  pdfMake.createPdf(docDefinition).download(`Invoice_${this.sales.salesId}.pdf`);
+  pdfMake.createPdf(docDefinition).download(`Invoice_${data.salesId}.pdf`);
 }
+
 
 }
 
