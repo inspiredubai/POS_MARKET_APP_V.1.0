@@ -212,6 +212,7 @@ export class SalesComponent implements OnInit {
         sI_No: index + 1,
         item_name: detail.item_name,
         qty: detail.qty,
+        rate:detail.rate,
         amount: detail.amount,
         createdDate: new Date().toISOString()
       }))
@@ -222,7 +223,6 @@ export class SalesComponent implements OnInit {
         console.log("Saved successfully", res);
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
-        debugger
         if (res.printInvoice) {
           this.downloadPDF(res)
         }
@@ -236,7 +236,6 @@ export class SalesComponent implements OnInit {
   }
   // Example: Calculate sum of 'amount' from tableData
   getTotalAmount() {
-    debugger
     if (!this.tableData || this.tableData.length === 0) {
       this.salesForm.patchValue({
         tenderedAmount: 0,
@@ -265,7 +264,7 @@ export class SalesComponent implements OnInit {
       const newRow = {
         si_no: this.tableData.length + 1,
         item_name: this.salesForm.value.product.displayName,
-        mrp: this.salesForm.value.mrp,
+        rate: this.salesForm.value.mrp,
         qty: this.salesForm.value.quantity,
         amount: this.salesForm.value.total
       };
@@ -337,7 +336,7 @@ export class SalesComponent implements OnInit {
               ...(data.details || []).map((d: any, i: number) => [
                 `${i + 1}.`,
                 d.item_Name || '',
-                { text: (d.mrp || 0).toFixed(2), alignment: 'right' },
+                { text: (d.rate || 0).toFixed(2), alignment: 'right' },
                 { text: d.qty?.toString() || '0', alignment: 'right' },
                 { text: (d.amount || 0).toFixed(2), alignment: 'right' }
               ])
