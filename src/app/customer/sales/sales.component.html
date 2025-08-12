@@ -135,6 +135,7 @@
                 <tr>
                   <th>SI_No</th>
                   <th>Item_Name</th>
+                  <th>Rate</th>
                   <th>Qty</th>
                   <th>Amount</th>
                 </tr>
@@ -143,6 +144,7 @@
                 <tr *ngFor="let row of tableData">
                   <td>{{ row.si_no }}</td>
                   <td>{{ row.item_name }}</td>
+                  <td>{{ row.rate }}</td>
                   <td>{{ row.qty }}</td>
                   <td>{{ row.amount }}</td>
                 </tr>

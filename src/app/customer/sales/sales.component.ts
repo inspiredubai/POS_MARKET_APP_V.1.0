@@ -265,6 +265,7 @@ export class SalesComponent implements OnInit {
       const newRow = {
         si_no: this.tableData.length + 1,
         item_name: this.salesForm.value.product.displayName,
+        mrp: this.salesForm.value.mrp,
         qty: this.salesForm.value.quantity,
         amount: this.salesForm.value.total
       };
@@ -309,29 +310,36 @@ export class SalesComponent implements OnInit {
       pageSize: { width: 220, height: 'auto' }, // ~80mm roll
       pageMargins: [10, 10, 10, 10],
       content: [
-         {
+        {
           text: 'Van Sale',
           alignment: 'center',
           bold: true,
-          fontSize: 16,
+          fontSize: 18,
           margin: [0, 0, 0, 10]
         },
-        
-        { text: '\n' },
+
+        // { text: '\n' },
         { text: `Mode: ${data.mode || ''}`, bold: true, alignment: 'center', fontSize: 11, margin: [0, 0, 0, 5] },
 
         { text: '........................................', alignment: 'center' },
-
         {
           fontSize: 9,
           table: {
-            widths: ['auto', '*', 'auto'],
+            widths: ['auto', '*', 'auto', 'auto', 'auto'], // now 5 columns
             body: [
-              [{ text: 'Item', bold: true }, '', { text: 'Qty', bold: true, alignment: 'right' }],
+              [
+                { text: '#', bold: true },
+                { text: 'Item', bold: true },
+                { text: 'Rate', bold: true, alignment: 'right' },
+                { text: 'Qty', bold: true, alignment: 'right' },
+                { text: 'Amount', bold: true, alignment: 'right' }
+              ],
               ...(data.details || []).map((d: any, i: number) => [
                 `${i + 1}.`,
                 d.item_Name || '',
-                { text: d.qty?.toString() || '0', alignment: 'right' }
+                { text: (d.mrp || 0).toFixed(2), alignment: 'right' },
+                { text: d.qty?.toString() || '0', alignment: 'right' },
+                { text: (d.amount || 0).toFixed(2), alignment: 'right' }
               ])
             ]
           },
@@ -362,7 +370,7 @@ export class SalesComponent implements OnInit {
             }
           ]
         },
-        { text: `Remark: ${data.remark || ''}` },
+        // { text: `Remark: ${data.remark || ''}` },
         { text: `\nTOTAL ITEMS: ${(data.details || []).length}`, bold: true, fontSize: 10, alignment: 'center' },
 
         { text: '\nThank you for your purchase!', alignment: 'center', italics: true, fontSize: 12 },
