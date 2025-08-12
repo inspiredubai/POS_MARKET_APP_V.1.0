@@ -51,7 +51,7 @@ export class SalesComponent implements OnInit {
       discountAmount: [''],
       unitInclV: [''],
       quantity: [''],
-      vatPercent: ['5'],
+      vatPercent: [5],
       total: [''],
       summaryDiscountPercent: [0.0],
       vatExcl: [0.0],
@@ -131,7 +131,7 @@ export class SalesComponent implements OnInit {
 
       // Patch the calculated fields
       this.salesForm.patchValue({
-        discountAmount: discountAmount.toFixed(2),
+        summaryDiscountAmount: discountAmount.toFixed(2),
         summaryTotal: total.toFixed(2),
         vat: vat.toFixed(2),
         vatExcl: vatExcl.toFixed(2),
