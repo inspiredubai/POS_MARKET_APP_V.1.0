@@ -36,7 +36,7 @@
               <ion-col size="12" size-md="6">
                 <ion-item>
                   <ion-label position="floating">Barcode</ion-label>
-                  <ion-input type="text" formControlName="barcode"></ion-input>
+                  <ion-input type="number" formControlName="barcode"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -47,7 +47,7 @@
               <ion-col size="12" size-md="6">
                 <ion-item>
                   <ion-label position="floating">MRP</ion-label>
-                  <ion-input type="text" formControlName="mrp" readonly></ion-input>
+                  <ion-input type="number" formControlName="mrp" readonly></ion-input>
                   <div class="error" *ngIf="f['mrp']?.touched && f['mrp']?.invalid">
                     <small class="p-error" style="margin-left:100; color: red;">MRP is required</small>
                   </div>
@@ -56,7 +56,7 @@
               <ion-col size="12" size-md="6">
                 <ion-item>
                   <ion-label position="floating">Cut Off Rate</ion-label>
-                  <ion-input type="text" formControlName="cutOffRate"></ion-input>
+                  <ion-input type="number" formControlName="cutOffRate"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -65,19 +65,19 @@
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">Discount %</ion-label>
-                  <ion-input type="text" formControlName="discountPercent"></ion-input>
+                  <ion-input type="number" formControlName="discountPercent"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">Unit Excl V</ion-label>
-                  <ion-input type="text" formControlName="unitExclV"></ion-input>
+                  <ion-input type="number" formControlName="unitExclV"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">FOC</ion-label>
-                  <ion-input type="text" formControlName="foc"></ion-input>
+                  <ion-input type="number" formControlName="foc"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -86,19 +86,19 @@
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">Discount Amount</ion-label>
-                  <ion-input type="text" formControlName="discountAmount"></ion-input>
+                  <ion-input type="number" formControlName="discountAmount"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">Unit Incl V</ion-label>
-                  <ion-input type="text" formControlName="unitInclV"></ion-input>
+                  <ion-input type="number" formControlName="unitInclV"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">Quantity</ion-label>
-                  <ion-input type="text" formControlName="quantity"></ion-input>
+                  <ion-input type="number" formControlName="quantity"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -107,13 +107,13 @@
               <ion-col size="12" size-md="5">
                 <ion-item>
                   <ion-label position="floating">VAT %</ion-label>
-                  <ion-input type="text" formControlName="vatPercent"></ion-input>
+                  <ion-input type="number" formControlName="vatPercent"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="5">
                 <ion-item>
                   <ion-label position="floating">Total</ion-label>
-                  <ion-input type="text" formControlName="total"></ion-input>
+                  <ion-input type="number" formControlName="total"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-md="2">
@@ -157,74 +157,74 @@
         <ion-card-content>
           <ion-grid>
 
-           <ion-row>
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">Tendered Amount</ion-label>
-      <ion-input type="number" formControlName="tenderedAmount"></ion-input>
-    </ion-item>
-  </ion-col>
+            <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Tendered Amount</ion-label>
+                  <ion-input type="number" formControlName="tenderedAmount"></ion-input>
+                </ion-item>
+              </ion-col>
 
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">Discount %</ion-label>
-      <ion-input type="number" formControlName="summaryDiscountPercent"></ion-input>
-    </ion-item>
-  </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Discount %</ion-label>
+                  <ion-input type="number" formControlName="summaryDiscountPercent"></ion-input>
+                </ion-item>
+              </ion-col>
 
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">Discount Amount</ion-label>
-      <ion-input type="number" formControlName="discountAmount" readonly></ion-input>
-    </ion-item>
-  </ion-col>
-</ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Discount Amount</ion-label>
+                  <ion-input type="number" formControlName="discountAmount" readonly></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
 
-<ion-row>
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">Card Received</ion-label>
-      <ion-input type="number" formControlName="cardReceived"></ion-input>
-    </ion-item>
-  </ion-col>
+            <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Card Received</ion-label>
+                  <ion-input type="number" formControlName="cardReceived"></ion-input>
+                </ion-item>
+              </ion-col>
 
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">Total</ion-label>
-      <ion-input type="number" formControlName="summaryTotal" readonly></ion-input>
-    </ion-item>
-  </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Total</ion-label>
+                  <ion-input type="number" formControlName="summaryTotal" readonly></ion-input>
+                </ion-item>
+              </ion-col>
 
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">VAT (5%)</ion-label>
-      <ion-input type="number" formControlName="vat" readonly></ion-input>
-    </ion-item>
-  </ion-col>
-</ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">VAT (5%)</ion-label>
+                  <ion-input type="number" formControlName="vat" readonly></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
 
-<ion-row>
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">VAT Excl</ion-label>
-      <ion-input type="number" formControlName="vatExcl" readonly></ion-input>
-    </ion-item>
-  </ion-col>
+            <ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">VAT Excl</ion-label>
+                  <ion-input type="number" formControlName="vatExcl" readonly></ion-input>
+                </ion-item>
+              </ion-col>
 
-  <ion-col size="12" size-md="4">
-    <ion-item>
-      <ion-label position="floating">Balance</ion-label>
-      <ion-input type="number" formControlName="balance" readonly></ion-input>
-    </ion-item>
-  </ion-col>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Balance</ion-label>
+                  <ion-input type="number" formControlName="balance" readonly></ion-input>
+                </ion-item>
+              </ion-col>
 
-  <ion-col size="12">
-    <ion-item>
-      <ion-label position="floating">Remarks</ion-label>
-      <ion-input type="text" formControlName="remarks"></ion-input>
-    </ion-item>
-  </ion-col>
-</ion-row>
+              <ion-col size="12" size-md="4">
+                <ion-item>
+                  <ion-label position="floating">Remarks</ion-label>
+                  <ion-input type="text" formControlName="remarks"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
 
             <ion-row>
               <ion-col size="12" size-md="10">
@@ -270,7 +270,7 @@
           <ion-col size="12" size-md="6" size-sm="6">
             <ion-item>
               <ion-label position="floating">Barcode</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -280,13 +280,13 @@
           <ion-col size="12" size-md="6" size-sm="6">
             <ion-item>
               <ion-label position="floating">MRP</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="6" size-sm="6">
             <ion-item>
               <ion-label position="floating">Cut Off Rate</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -295,19 +295,19 @@
           <ion-col size="12" size-md="4" size-sm="6">
             <ion-item>
               <ion-label position="floating">Discount %</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="4" size-sm="6">
             <ion-item>
               <ion-label position="floating">Unit Excl V</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="4" size-sm="6">
             <ion-item>
               <ion-label position="floating">FOC</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -316,19 +316,19 @@
           <ion-col size="12" size-md="4" size-sm="6">
             <ion-item>
               <ion-label position="floating">Discount Amount</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="4" size-sm="6">
             <ion-item>
               <ion-label position="floating">Unit Incl V</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="4" size-sm="6">
             <ion-item>
               <ion-label position="floating">Quantity</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -337,13 +337,13 @@
           <ion-col size="12" size-md="5" size-sm="5">
             <ion-item>
               <ion-label position="floating">VAT %</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="5" size-sm="5">
             <ion-item>
               <ion-label position="floating">Total</ion-label>
-              <ion-input type="text"></ion-input>
+              <ion-input type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="2" size-sm="2">
@@ -459,7 +459,7 @@
           <ion-col size="12">
             <ion-item>
               <ion-label position="floating">Remark</ion-label>
-              <ion-textarea></ion-textarea>
+              <ion-numberarea></ion-numberarea>
             </ion-item>
           </ion-col>
         </ion-row>

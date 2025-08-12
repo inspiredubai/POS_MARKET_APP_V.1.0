@@ -29,7 +29,7 @@ export class SalesComponent implements OnInit {
   loading = false;
   MrpValue: any;
   sales: any
-     isUpdating = false;
+  isUpdating = false;
   constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService
@@ -39,64 +39,64 @@ export class SalesComponent implements OnInit {
   }
 
   ngOnInit() {
-  this.salesForm = this.fb.group({
-    mode: ['retail'],
-    product: ['', Validators.required],
-    barcode: [''],
-    mrp: ['', Validators.required],
-    cutOffRate: [''],
-    discountPercent: [''],
-    unitExclV: [''],
-    foc: [''],
-    discountAmount: [''],
-    unitInclV: [''],
-    quantity: [''],
-    vatPercent: [''],
-    total: [''],
-    summaryDiscountPercent: [0.0],
-    vatExcl: [0.0],
-    tenderedAmount: [0.0],
-    summaryDiscountAmount: [0.0],
-    vat: [0.0],
-    cardReceived: [0.0],
-    balance: [0.0],
-    summaryTotal: [0.0],
-    addedToCredit: [0.0],
-    remark: [''],
-    printInvoice: [false],
-  });
+    this.salesForm = this.fb.group({
+      mode: ['retail'],
+      product: ['', Validators.required],
+      barcode: [''],
+      mrp: ['', Validators.required],
+      cutOffRate: [''],
+      discountPercent: [''],
+      unitExclV: [''],
+      foc: [''],
+      discountAmount: [''],
+      unitInclV: [''],
+      quantity: [''],
+      vatPercent: ['5'],
+      total: [''],
+      summaryDiscountPercent: [0.0],
+      vatExcl: [0.0],
+      tenderedAmount: [0.0],
+      summaryDiscountAmount: [0.0],
+      vat: [0.0],
+      cardReceived: [0.0],
+      balance: [0.0],
+      summaryTotal: [0.0],
+      addedToCredit: [0.0],
+      remark: [''],
+      printInvoice: [false],
+    });
 
 
 
-  this.getItems();
+    this.getItems();
 
-  this.salesForm.valueChanges.subscribe((values: { mrp: string; cutOffRate: string; discountPercent: string; quantity: string; vatPercent: string; }) => {
-    const mrp = parseFloat(values.mrp) || 0;
-    const cutOffRate = parseFloat(values.cutOffRate) || 0;
-    const discountPercent = parseFloat(values.discountPercent) || 0;
-    const quantity = parseFloat(values.quantity) || 0;
-    const vatPercent = parseFloat(values.vatPercent) || 0;
+    this.salesForm.valueChanges.subscribe((values: { mrp: string; cutOffRate: string; discountPercent: string; quantity: string; vatPercent: string; }) => {
+      const mrp = parseFloat(values.mrp) || 0;
+      const cutOffRate = parseFloat(values.cutOffRate) || 0;
+      const discountPercent = parseFloat(values.discountPercent) || 0;
+      const quantity = parseFloat(values.quantity) || 0;
+      const vatPercent = parseFloat(values.vatPercent) || 0;
 
-    const discountAmount = mrp * (discountPercent / 100);
+      const discountAmount = mrp * (discountPercent / 100);
 
-    let unitInclV = mrp - discountAmount;
-    if (cutOffRate > 0) {
-      unitInclV = cutOffRate;
-    }
+      let unitInclV = mrp - discountAmount;
+      if (cutOffRate > 0) {
+        unitInclV = cutOffRate;
+      }
 
-    const unitExclV = unitInclV / (1 + vatPercent / 100);
+      const unitExclV = unitInclV / (1 + vatPercent / 100);
 
-    const total = unitInclV * quantity;
+      const total = unitInclV * quantity;
 
-    this.salesForm.patchValue({
-      discountAmount: discountAmount.toFixed(2),
-      unitInclV: unitInclV.toFixed(2),
-      unitExclV: unitExclV.toFixed(2),
-      total: total.toFixed(2)
-    }, { emitEvent: false });
-  });
+      this.salesForm.patchValue({
+        discountAmount: discountAmount.toFixed(2),
+        unitInclV: unitInclV.toFixed(2),
+        unitExclV: unitExclV.toFixed(2),
+        total: total.toFixed(2)
+      }, { emitEvent: false });
+    });
 
-     const vatRate = 0.05;
+    const vatRate = 0.05;
 
     this.salesForm.valueChanges.subscribe((values: { tenderedAmount: string; summaryDiscountPercent: string; cardReceived: string; }) => {
       if (this.isUpdating) return;
@@ -140,9 +140,9 @@ export class SalesComponent implements OnInit {
 
       this.isUpdating = false;
     });
-  
 
- }
+
+  }
 
 
   get f(): { [key: string]: AbstractControl } {
@@ -178,11 +178,11 @@ export class SalesComponent implements OnInit {
   }
   save() {
     this.loading = true;
-     this.salesDetails=this.tableData;
+    this.salesDetails = this.tableData;
     const payload = {
       salesId: 0,
       mode: this.salesForm.value.mode,
-      product: this.salesForm.value.product?.displayName?this.salesForm.value.product?.displayName:'',
+      product: this.salesForm.value.product?.displayName ? this.salesForm.value.product?.displayName : '',
       barcode: this.salesForm.value.barcode,
       mrp: this.salesForm.value.mrp,
       cutOffRate: this.salesForm.value.cutOffRate,
@@ -216,15 +216,15 @@ export class SalesComponent implements OnInit {
         createdDate: new Date().toISOString()
       }))
     };
-   
+
     this.vansales.save(payload).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         console.log("Saved successfully", res);
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
         debugger
-        if(res.printInvoice){
-        this.downloadPDF(res)
+        if (res.printInvoice) {
+          this.downloadPDF(res)
         }
       },
       error: (err) => {
@@ -235,29 +235,29 @@ export class SalesComponent implements OnInit {
     });
   }
   // Example: Calculate sum of 'amount' from tableData
-getTotalAmount() {
-  debugger
-  if (!this.tableData || this.tableData.length === 0) {
+  getTotalAmount() {
+    debugger
+    if (!this.tableData || this.tableData.length === 0) {
+      this.salesForm.patchValue({
+        tenderedAmount: 0,
+        summaryTotal: 0
+      }, { emitEvent: false });
+      return 0;
+    }
+
+    const totalAmount = this.tableData.reduce(
+      (sum, item) => sum + (parseFloat(item.amount) || 0),
+      0
+    );
+
+    // Update form values without triggering valueChanges again
     this.salesForm.patchValue({
-      tenderedAmount: 0,
-      summaryTotal: 0
+      tenderedAmount: totalAmount,
+      summaryTotal: totalAmount
     }, { emitEvent: false });
-    return 0;
+
+    return totalAmount;
   }
-
-  const totalAmount = this.tableData.reduce(
-    (sum, item) => sum + (parseFloat(item.amount) || 0),
-    0
-  );
-
-  // Update form values without triggering valueChanges again
-  this.salesForm.patchValue({
-    tenderedAmount: totalAmount,
-    summaryTotal: totalAmount
-  }, { emitEvent: false });
-
-  return totalAmount;
-}
 
 
   onAdd() {
@@ -275,13 +275,13 @@ getTotalAmount() {
 
       this.salesForm.reset();
 
-    this.salesForm.patchValue({
-  tenderedAmount: tenderedAmountValue,
-  summaryTotal: summaryTotalValue
-});
+      this.salesForm.patchValue({
+        tenderedAmount: tenderedAmountValue,
+        summaryTotal: summaryTotalValue
+      });
 
       this.getTotalAmount()
-     // this.salesForm.reset();
+      // this.salesForm.reset();
     } else {
       Object.values(this.f).forEach(control => {
         control.markAsTouched();
@@ -298,112 +298,88 @@ getTotalAmount() {
     }
   }
 
+  downloadPDF(data: any) {
+    const subtotal = data.details?.reduce((sum: number, d: any) => sum + (d.amount || 0), 0) || 0;
+    const total = subtotal;
+    const vatExcl = data.vatExcl || 0;
+    const tenderedAmount = data.tenderedAmount || 0;
+    const cardReceived = data.cardReceived || 0;
 
-downloadPDF(data: any) {
-  const subtotal = data.details?.reduce((sum: number, d: any) => sum + (d.amount || 0), 0) || 0;
-  const total = subtotal;
-  const vatExcl = data.vatExcl || 0;
-  const tenderedAmount = data.tenderedAmount || 0;
-  const cardReceived = data.cardReceived || 0;
+    const docDefinition: any = {
+      pageSize: { width: 220, height: 'auto' }, // ~80mm roll
+      pageMargins: [10, 10, 10, 10],
+      content: [
+         {
+          text: 'Van Sale',
+          alignment: 'center',
+          bold: true,
+          fontSize: 16,
+          margin: [0, 0, 0, 10]
+        },
+        
+        { text: '\n' },
+        { text: `Mode: ${data.mode || ''}`, bold: true, alignment: 'center', fontSize: 11, margin: [0, 0, 0, 5] },
 
-  const docDefinition: any = {
-    pageSize: 'A4',
-    pageMargins: [40, 60, 40, 60],
-    content: [
-      // HEADER
-      {
-        columns: [
-          { text: 'VAN SALE', style: 'invoiceTitle' },
-          {
-            stack: [
-              { text: `Invoice #${data.salesId}`, style: 'invoiceNumber' },
-              { text: `Date: ${new Date(data.createdDate).toLocaleDateString()}`, style: 'invoiceDate' }
-            ],
-            alignment: 'right'
-          }
-        ]
-      },
-      { text: '\n' },
+        { text: '........................................', alignment: 'center' },
 
-      // ORDER INFO ONLY
-      {
-        columns: [
-          {
-            width: '100%',
-            stack: [
-              { text: `Mode: ${data.mode || ''}`, bold: true },
-              { text: `Remark: ${data.remark || ''}` }
+        {
+          fontSize: 9,
+          table: {
+            widths: ['auto', '*', 'auto'],
+            body: [
+              [{ text: 'Item', bold: true }, '', { text: 'Qty', bold: true, alignment: 'right' }],
+              ...(data.details || []).map((d: any, i: number) => [
+                `${i + 1}.`,
+                d.item_Name || '',
+                { text: d.qty?.toString() || '0', alignment: 'right' }
+              ])
             ]
-          }
-        ]
-      },
-      { text: '\n' },
+          },
+          layout: 'noBorders'
+        },
 
-      // ITEMS TABLE
-      {
-        table: {
-          headerRows: 1,
-          widths: ['auto', '*', 'auto', 'auto'],
-          body: [
-            [
-              { text: '#', style: 'tableHeader' },
-              { text: 'Item Name', style: 'tableHeader' },
-              { text: 'Qty', style: 'tableHeader', alignment: 'right' },
-              { text: 'Amount', style: 'tableHeader', alignment: 'right' }
-            ],
-            ...(data.details || []).map((d: any) => [
-              d.sI_No || '',
-              d.item_Name || '',
-              { text: d.qty || 0, alignment: 'right' },
-              { text: (d.amount || 0).toFixed(2), alignment: 'right' }
-            ])
+        { text: '........................................', alignment: 'center' },
+
+
+        {
+          columns: [
+            { width: '*', text: '' }, // empty column to push content right
+            {
+              width: 'auto',
+              table: {
+                widths: ['*', 'auto'],
+                body: [
+                  ['Subtotal', subtotal.toFixed(2)],
+                  ['VAT Excl', vatExcl.toFixed(2)],
+                  ['Tendered Amount', tenderedAmount.toFixed(2)],
+                  ['Card Received', cardReceived.toFixed(2)],
+                  [{ text: 'Total', bold: true }, { text: total.toFixed(2), bold: true }]
+                ]
+              },
+              fontSize: 9,
+              margin: [0, 5, 0, 5],
+              layout: 'noBorders'
+            }
           ]
         },
-        layout: {
-          fillColor: (rowIndex: number) => rowIndex === 0 ? '#eeeeee' : null,
-          hLineColor: () => '#cccccc',
-          vLineColor: () => '#cccccc'
-        }
-      },
-      { text: '\n' },
+        { text: `Remark: ${data.remark || ''}` },
+        { text: `\nTOTAL ITEMS: ${(data.details || []).length}`, bold: true, fontSize: 10, alignment: 'center' },
 
-      // TOTALS
-      {
-        columns: [
-          { width: '*', text: '' },
-          {
-            width: 'auto',
-            table: {
-              widths: ['*', 'auto'],
-              body: [
-                ['Subtotal', subtotal.toFixed(2)],
-                ['VAT Excl', vatExcl.toFixed(2)],
-                ['Tendered Amount', tenderedAmount.toFixed(2)],
-                ['Card Received', cardReceived.toFixed(2)],
-                [{ text: 'Total', bold: true }, { text: total.toFixed(2), bold: true }]
-              ]
-            },
-            layout: 'lightHorizontalLines'
-          }
-        ]
-      },
+        { text: '\nThank you for your purchase!', alignment: 'center', italics: true, fontSize: 12 },
 
-      { text: '\nThank you for your purchase!', alignment: 'center', italics: true, fontSize: 12 }
-    ],
+        { text: '........................................', alignment: 'center', margin: [0, 5, 0, 5] },
 
-    styles: {
-      invoiceTitle: { fontSize: 20, bold: true },
-      invoiceNumber: { fontSize: 12, bold: true },
-      invoiceDate: { fontSize: 10, italics: true },
-      tableHeader: { bold: true, fontSize: 12, color: 'black' }
-    }
-  };
+        { text: new Date(data.createdDate).toLocaleString(), alignment: 'center', fontSize: 8 }
+      ]
+    };
 
-  pdfMake.createPdf(docDefinition).download(`Invoice_${data.salesId}.pdf`);
-}
+    pdfMake.createPdf(docDefinition).download(`Order_${data.salesId}.pdf`);
+  }
+
 
 
 }
+
 
 
 
