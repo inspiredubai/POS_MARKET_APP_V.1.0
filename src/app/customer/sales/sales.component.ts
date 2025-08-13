@@ -54,7 +54,7 @@ export class SalesComponent implements OnInit {
       discountAmount: [''],
       unitInclV: [''],
       quantity: [''],
-      vatPercent: ['5'],
+      vatPercent: [0],
       total: [''],
       summaryDiscountPercent: [0.0],
       vatExcl: [0.0],
@@ -143,18 +143,12 @@ this.generalSetting();
   }
 generalSetting(){
     this.vansales.GetProgramSettingsDropdown().subscribe((m: any) => {
-      const vatcal = m[0]?.generalSettingsBoolValue;
-      this.VATEXLUDE = vatcal === true;
-
-      const match = m.resultSet.optionSettings.optionsMasterType.match(/(\d+)/);
-      if (match) {
-        this.vatvalue = parseInt(match[0], 10);
+      const vatcal = m.resultSet.generalSettings[2]?.generalSettingsBoolValue;
         this.salesForm
-          .get('salesVoucherVatPer')
-          .setValue(this.VATEXLUDE ? 5 : 0);
-      }
+          .get('vatPercent')
+          .setValue(vatcal==true ? 0 : 5);
     });
-    debugger
+    
 }
 
   get f(): { [key: string]: AbstractControl } {
