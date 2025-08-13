@@ -143,14 +143,15 @@ export class SalesComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.salesForm.controls;
   }
-  // addItem() {
-  //   if (this.salesForm.invalid) {
-  //     this.salesForm.markAllAsTouched();
-  //     return;
-  //   } else {
-  //     this.save()
-  //   }
-  // }
+  addItem() {
+    if (!this.tableData || this.tableData.length === 0){
+      this.salesForm.markAllAsTouched();
+      this.toastService.show('Grid Value Required', 'danger');
+      return;
+    } else {
+      this.save()
+    }
+  }
   openItem() {
     // this.getItems();
   }
