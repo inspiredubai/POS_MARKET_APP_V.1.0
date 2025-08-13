@@ -51,7 +51,7 @@ export class SalesComponent implements OnInit {
       discountAmount: [''],
       unitInclV: [''],
       quantity: [''],
-      vatPercent: [5],
+      vatPercent: ['5'],
       total: [''],
       summaryDiscountPercent: [0.0],
       vatExcl: [0.0],
@@ -112,26 +112,21 @@ export class SalesComponent implements OnInit {
       let vatExcl = 0;
       let balance = 0;
 
-      // STEP 1: Calculate discount amount
-      if (tenderedAmount > 0 && discountPercent > 0) {
+       if (tenderedAmount > 0 && discountPercent > 0) {
         discountAmount = tenderedAmount * (discountPercent / 100);
       }
 
-      // STEP 2: Apply discount to total
-      total = tenderedAmount - discountAmount;
+       total = tenderedAmount - discountAmount;
 
-      // STEP 3: Calculate VAT (5%)
-      vat = total * vatRate;
+       vat = total * vatRate;
 
-      // STEP 4: VAT Exclusive (Total - VAT)
-      vatExcl = total - vat;
+       vatExcl = total - vat;
 
-      // STEP 5: Calculate balance after card payment
-      balance = total - cardReceived;
+       balance = total - cardReceived;
 
       // Patch the calculated fields
       this.salesForm.patchValue({
-        summaryDiscountAmount: discountAmount.toFixed(2),
+        discountAmount: discountAmount.toFixed(2),
         summaryTotal: total.toFixed(2),
         vat: vat.toFixed(2),
         vatExcl: vatExcl.toFixed(2),
@@ -212,7 +207,6 @@ export class SalesComponent implements OnInit {
         sI_No: index + 1,
         item_name: detail.item_name,
         qty: detail.qty,
-        rate:detail.rate,
         amount: detail.amount,
         createdDate: new Date().toISOString()
       }))
@@ -223,6 +217,7 @@ export class SalesComponent implements OnInit {
         console.log("Saved successfully", res);
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
+        debugger
         if (res.printInvoice) {
           this.downloadPDF(res)
         }
@@ -236,6 +231,7 @@ export class SalesComponent implements OnInit {
   }
   // Example: Calculate sum of 'amount' from tableData
   getTotalAmount() {
+    debugger
     if (!this.tableData || this.tableData.length === 0) {
       this.salesForm.patchValue({
         tenderedAmount: 0,
@@ -264,7 +260,7 @@ export class SalesComponent implements OnInit {
       const newRow = {
         si_no: this.tableData.length + 1,
         item_name: this.salesForm.value.product.displayName,
-        rate: this.salesForm.value.mrp,
+        mrp: this.salesForm.value.mrp,
         qty: this.salesForm.value.quantity,
         amount: this.salesForm.value.total
       };
@@ -336,7 +332,7 @@ export class SalesComponent implements OnInit {
               ...(data.details || []).map((d: any, i: number) => [
                 `${i + 1}.`,
                 d.item_Name || '',
-                { text: (d.rate || 0).toFixed(2), alignment: 'right' },
+                { text: (d.mrp || 0).toFixed(2), alignment: 'right' },
                 { text: d.qty?.toString() || '0', alignment: 'right' },
                 { text: (d.amount || 0).toFixed(2), alignment: 'right' }
               ])
