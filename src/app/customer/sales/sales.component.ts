@@ -30,7 +30,9 @@ export class SalesComponent implements OnInit {
   MrpValue: any;
   sales: any
   isUpdating = false;
-  constructor(private fb: FormBuilder,
+    VATEXLUDE: boolean = false;       // ✅ Declare
+  vatvalue: number = 0;             // ✅ Declare
+   constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService
   ) {
@@ -39,6 +41,7 @@ export class SalesComponent implements OnInit {
   }
 
   ngOnInit() {
+  
     this.salesForm = this.fb.group({
       mode: ['retail'],
       product: ['', Validators.required],
@@ -136,9 +139,23 @@ export class SalesComponent implements OnInit {
       this.isUpdating = false;
     });
 
-
+this.generalSetting();
   }
+generalSetting(){
+    this.vansales.GetProgramSettingsDropdown().subscribe((m: any) => {
+      const vatcal = m[0]?.generalSettingsBoolValue;
+      this.VATEXLUDE = vatcal === true;
 
+      const match = m.resultSet.optionSettings.optionsMasterType.match(/(\d+)/);
+      if (match) {
+        this.vatvalue = parseInt(match[0], 10);
+        this.salesForm
+          .get('salesVoucherVatPer')
+          .setValue(this.VATEXLUDE ? 5 : 0);
+      }
+    });
+    debugger
+}
 
   get f(): { [key: string]: AbstractControl } {
     return this.salesForm.controls;
@@ -294,6 +311,7 @@ export class SalesComponent implements OnInit {
       this.salesForm.get('barcode')?.setValue(selectedProduct.barcode);
     }
   }
+  
 
   downloadPDF(data: any) {
     const subtotal = data.details?.reduce((sum: number, d: any) => sum + (d.amount || 0), 0) || 0;
@@ -379,7 +397,6 @@ export class SalesComponent implements OnInit {
 
     pdfMake.createPdf(docDefinition).download(`Order_${data.salesId}.pdf`);
   }
-
 
 
 }

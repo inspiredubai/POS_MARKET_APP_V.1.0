@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
-@Injectable({
+ @Injectable({
   providedIn: 'root'
 })
 export class VansalesService {
@@ -20,6 +20,11 @@ public getItemById(id: number) {
   return this.httpClient.get(`${this.baseUrl}master/item/GetAllItemMasterById/${id}`);
 }
 
+ public GetProgramSettingsDropdown(): Observable<any> {
+  return this.httpClient.get<any[]>(
+    this.baseUrl + '/settings/LoadDropdown'
+  );
+}
 
 }
  
