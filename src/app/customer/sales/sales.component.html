@@ -99,6 +99,9 @@
                 <ion-item>
                   <ion-label position="floating">Quantity</ion-label>
                   <ion-input type="number" formControlName="quantity"></ion-input>
+                   <div class="error" *ngIf="f['quantity']?.touched && f['quantity']?.invalid">
+                    <small class="p-error" style="margin-left:100; color: red;">Quantity is required</small>
+                  </div>
                 </ion-item>
               </ion-col>
             </ion-row>

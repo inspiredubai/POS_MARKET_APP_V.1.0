@@ -53,7 +53,7 @@ export class SalesComponent implements OnInit {
       foc: [''],
       discountAmount: [''],
       unitInclV: [''],
-      quantity: [''],
+      quantity: ['',Validators.required],
       vatPercent: [0],
       total: [''],
       summaryDiscountPercent: [0.0],
@@ -129,7 +129,7 @@ export class SalesComponent implements OnInit {
 
       // Patch the calculated fields
       this.salesForm.patchValue({
-        discountAmount: discountAmount.toFixed(2),
+        summaryDiscountAmount: discountAmount.toFixed(2),
         summaryTotal: total.toFixed(2),
         vat: vat.toFixed(2),
         vatExcl: vatExcl.toFixed(2),
@@ -219,6 +219,7 @@ generalSetting(){
         sI_No: index + 1,
         item_name: detail.item_name,
         qty: detail.qty,
+        rate:detail.rate,
         amount: detail.amount,
         createdDate: new Date().toISOString()
       }))
@@ -229,7 +230,6 @@ generalSetting(){
         console.log("Saved successfully", res);
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
-        debugger
         if (res.printInvoice) {
           this.downloadPDF(res)
         }
@@ -243,7 +243,6 @@ generalSetting(){
   }
   // Example: Calculate sum of 'amount' from tableData
   getTotalAmount() {
-    debugger
     if (!this.tableData || this.tableData.length === 0) {
       this.salesForm.patchValue({
         tenderedAmount: 0,
@@ -272,11 +271,10 @@ generalSetting(){
       const newRow = {
         si_no: this.tableData.length + 1,
         item_name: this.salesForm.value.product.displayName,
-        mrp: this.salesForm.value.mrp,
+        rate: this.salesForm.value.mrp,
         qty: this.salesForm.value.quantity,
         amount: this.salesForm.value.total
       };
-
       this.tableData.push(newRow);
       const tenderedAmountValue = this.salesForm.get('tenderedAmount')?.value;
       const summaryTotalValue = this.salesForm.get('summaryTotal')?.value;
@@ -345,7 +343,7 @@ generalSetting(){
               ...(data.details || []).map((d: any, i: number) => [
                 `${i + 1}.`,
                 d.item_Name || '',
-                { text: (d.mrp || 0).toFixed(2), alignment: 'right' },
+                { text: (d.rate || 0).toFixed(2), alignment: 'right' },
                 { text: d.qty?.toString() || '0', alignment: 'right' },
                 { text: (d.amount || 0).toFixed(2), alignment: 'right' }
               ])
