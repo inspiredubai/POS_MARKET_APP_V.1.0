@@ -226,7 +226,7 @@
               <ion-col size="12" size-md="4">
                 <ion-item>
                   <ion-label position="floating">Remarks</ion-label>
-                  <ion-input type="text" formControlName="remarks"></ion-input>
+                  <ion-input type="text" formControlName="remark"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -242,6 +242,10 @@
                 <ion-button expand="block" color="primary" (click)="addItem()" [disabled]="loading">
                   <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
                   <span *ngIf="!loading">SAVE</span>
+                </ion-button>
+
+                       <ion-button expand="block" color="primary" (click)="crystalReport('pdf')" >
+                  <span>report</span>
                 </ion-button>
               </ion-col>
             </ion-row>

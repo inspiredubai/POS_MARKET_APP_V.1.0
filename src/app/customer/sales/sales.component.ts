@@ -7,9 +7,12 @@ import { ToastService } from 'src/app/service/toast.service';
 import { VansalesService } from 'src/app/service/vansales.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { ExportFormatType, ReportFilterModel } from 'src/app/models/ReportFilterModel';
 
 // Assign the font files to pdfMake
 pdfMake.vfs = (pdfFonts as any).vfs;
+import * as XLSX from 'xlsx';
+import { CrystalReportService } from 'src/app/service/crystal-report.service';
 
 
 @Component({
@@ -18,7 +21,7 @@ pdfMake.vfs = (pdfFonts as any).vfs;
   styleUrls: ['./sales.component.scss'],
   standalone: true,
   imports: [CommonModule, IonicModule, FormsModule, HttpClientModule, ReactiveFormsModule],
-  providers: [VansalesService],
+  providers: [VansalesService,CrystalReportService],
 })
 export class SalesComponent implements OnInit {
   salesForm: any;
@@ -32,9 +35,12 @@ export class SalesComponent implements OnInit {
   isUpdating = false;
     VATEXLUDE: boolean = false;       // ✅ Declare
   vatvalue: number = 0;             // ✅ Declare
+    pdfSource: string | undefined;
+
    constructor(private fb: FormBuilder,
     private vansales: VansalesService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private report:CrystalReportService
   ) {
 
 
@@ -390,6 +396,95 @@ generalSetting(){
     pdfMake.createPdf(docDefinition).download(`Order_${data.salesId}.pdf`);
   }
 
+  // for crustal report
+
+
+    rptFilter: ReportFilterModel | undefined;
+  crystalReport(type:any) {
+    this.rptFilter = {
+      ReportName: 'SalesVoucherVAT',
+      SelectionFormula: '',
+      Parameters: [],
+      Queries: [
+        `select * from vw_salesinvoice where salesvoucherid='${452}'`,
+      ],
+      SP_Queries: [],
+      ExportType: type === 'pdf' ? ExportFormatType.PortableDocFormat : ExportFormatType.ExcelWorkbook,
+
+    };
+
+    this.report.getReportPrint(this.rptFilter, true)
+      .subscribe((response: any) => {
+        if (type === 'pdf') {
+          const blob = new Blob([response], { type: 'application/pdf' });
+          this.pdfSource = URL.createObjectURL(blob);
+          window.open(this.pdfSource);
+
+        } else {
+          const excelBlob = new Blob([response], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          });
+
+          const reader = new FileReader();
+
+          reader.onload = (e: ProgressEvent<FileReader>) => {
+            const data = new Uint8Array(e.target!.result as ArrayBuffer);
+            const workbook = XLSX.read(data, { type: 'array' });
+
+            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+            const htmlContent = XLSX.utils.sheet_to_html(worksheet);
+
+            const fileUrl = URL.createObjectURL(excelBlob);
+            const filename = `${this.rptFilter?.ReportName}.xlsx`;
+
+            const previewWindow = window.open('', '_blank');
+            if (previewWindow) {
+              previewWindow.document.write(`
+                      <html>
+                        <head>
+                          <title>Excel Preview - ${filename}</title>
+                          <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            button {
+                              padding: 10px 20px;
+                              margin-bottom: 20px;
+                              background-color: #007bff;
+                              color: white;
+                              border: none;
+                              border-radius: 4px;
+                              cursor: pointer;
+                            }
+                            button:hover {
+                              background-color: #0056b3;
+                            }
+                            table { border-collapse: collapse; width: 100%; }
+                            td, th { border: 1px solid #ccc; padding: 8px; }
+                          </style>
+                        </head>
+                        <body>
+                          <button onclick="downloadExcel()">Download Excel</button>
+                          ${htmlContent}
+                          <script>
+                            function downloadExcel() {
+                              const link = document.createElement('a');
+                              link.href = '${fileUrl}';
+                              link.download = '${filename}';
+                              link.click();
+                            }
+                          </script>
+                        </body>
+                      </html>
+                    `);
+              previewWindow.document.close();
+            } else {
+              console.error('Failed to open preview window (popup blocker?)');
+            }
+          };
+
+          reader.readAsArrayBuffer(excelBlob);
+        }
+      });
+  }
 
 }
 
