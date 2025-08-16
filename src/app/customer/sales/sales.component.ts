@@ -21,7 +21,7 @@ import { CrystalReportService } from 'src/app/service/crystal-report.service';
   styleUrls: ['./sales.component.scss'],
   standalone: true,
   imports: [CommonModule, IonicModule, FormsModule, HttpClientModule, ReactiveFormsModule],
-  providers: [VansalesService,CrystalReportService],
+  providers: [VansalesService, CrystalReportService],
 })
 export class SalesComponent implements OnInit {
   salesForm: any;
@@ -33,21 +33,21 @@ export class SalesComponent implements OnInit {
   MrpValue: any;
   sales: any
   isUpdating = false;
-    VATEXLUDE: boolean = false;       // ✅ Declare
+  VATEXLUDE: boolean = false;       // ✅ Declare
   vatvalue: number = 0;             // ✅ Declare
-    pdfSource: string | undefined;
+  pdfSource: string | undefined;
 
-   constructor(private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService,
-    private report:CrystalReportService
+    private report: CrystalReportService
   ) {
 
 
   }
 
   ngOnInit() {
-  
+
     this.salesForm = this.fb.group({
       mode: ['retail'],
       product: ['', Validators.required],
@@ -59,7 +59,7 @@ export class SalesComponent implements OnInit {
       foc: [''],
       discountAmount: [''],
       unitInclV: [''],
-      quantity: ['',Validators.required],
+      quantity: ['', Validators.required],
       vatPercent: [0],
       total: [''],
       summaryDiscountPercent: [0.0],
@@ -121,17 +121,17 @@ export class SalesComponent implements OnInit {
       let vatExcl = 0;
       let balance = 0;
 
-       if (tenderedAmount > 0 && discountPercent > 0) {
+      if (tenderedAmount > 0 && discountPercent > 0) {
         discountAmount = tenderedAmount * (discountPercent / 100);
       }
 
-       total = tenderedAmount - discountAmount;
+      total = tenderedAmount - discountAmount;
 
-       vat = total * vatRate;
+      vat = total * vatRate;
 
-       vatExcl = total - vat;
+      vatExcl = total - vat;
 
-       balance = total - cardReceived;
+      balance = total - cardReceived;
 
       // Patch the calculated fields
       this.salesForm.patchValue({
@@ -145,23 +145,23 @@ export class SalesComponent implements OnInit {
       this.isUpdating = false;
     });
 
-this.generalSetting();
+    this.generalSetting();
   }
-generalSetting(){
+  generalSetting() {
     this.vansales.GetProgramSettingsDropdown().subscribe((m: any) => {
       const vatcal = m.resultSet.generalSettings[2]?.generalSettingsBoolValue;
-        this.salesForm
-          .get('vatPercent')
-          .setValue(vatcal==true ? 0 : 5);
+      this.salesForm
+        .get('vatPercent')
+        .setValue(vatcal == true ? 0 : 5);
     });
-    
-}
+
+  }
 
   get f(): { [key: string]: AbstractControl } {
     return this.salesForm.controls;
   }
   addItem() {
-    if (!this.tableData || this.tableData.length === 0){
+    if (!this.tableData || this.tableData.length === 0) {
       this.salesForm.markAllAsTouched();
       this.toastService.show('Grid Value Required', 'danger');
       return;
@@ -225,7 +225,7 @@ generalSetting(){
         sI_No: index + 1,
         item_name: detail.item_name,
         qty: detail.qty,
-        rate:detail.rate,
+        rate: detail.rate,
         amount: detail.amount,
         createdDate: new Date().toISOString()
       }))
@@ -309,7 +309,7 @@ generalSetting(){
       this.salesForm.get('barcode')?.setValue(selectedProduct.barcode);
     }
   }
-  
+
 
   downloadPDF(data: any) {
     const subtotal = data.details?.reduce((sum: number, d: any) => sum + (d.amount || 0), 0) || 0;
@@ -399,8 +399,8 @@ generalSetting(){
   // for crustal report
 
 
-    rptFilter: ReportFilterModel | undefined;
-  crystalReport(type:any) {
+  rptFilter: ReportFilterModel | undefined;
+  crystalReport(type: any) {
     this.rptFilter = {
       ReportName: 'SalesVoucherVAT',
       SelectionFormula: '',
