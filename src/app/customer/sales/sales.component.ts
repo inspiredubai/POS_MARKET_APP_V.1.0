@@ -59,7 +59,7 @@ export class SalesComponent implements OnInit {
   ngOnInit() {
 
     this.salesForm = this.fb.group({
-      mode: ['retail'],
+      mode: ['CASH'],
       product: ['', Validators.required],
       barcode: [''],
       mrp: ['', Validators.required],
@@ -297,12 +297,16 @@ export class SalesComponent implements OnInit {
       this.tableData.push(newRow);
       const tenderedAmountValue = this.salesForm.get('tenderedAmount')?.value;
       const summaryTotalValue = this.salesForm.get('summaryTotal')?.value;
+      const mode =  this.salesForm.get('mode')?.value;
+      const vat =  this.salesForm.get('vatPercent')?.value;
 
       this.salesForm.reset();
 
       this.salesForm.patchValue({
         tenderedAmount: tenderedAmountValue,
-        summaryTotal: summaryTotalValue
+        summaryTotal: summaryTotalValue,
+        mode:mode,
+        vatPercent:vat
       });
 
       this.getTotalAmount()
