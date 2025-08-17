@@ -11,10 +11,11 @@
     <div>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>ABU SHABA GROCERY</ion-card-title>
-          <ion-select interface="popover" placeholder="Retail" formControlName="mode">
-            <ion-select-option value="retail">Retail</ion-select-option>
-            <ion-select-option value="wholesale">Wholesale</ion-select-option>
+          <ion-card-title>{{customer?.customerMasterCustomerName}}</ion-card-title>
+          <ion-select interface="popover" placeholder="Invoice Type" formControlName="mode">
+            <ion-select-option value="CASH">CASH</ion-select-option>
+            <ion-select-option value="CREDIT">CREDIT</ion-select-option>
+            <ion-select-option value="CARD">CARD</ion-select-option>
           </ion-select>
         </ion-card-header>
         <ion-card-content>

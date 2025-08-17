@@ -13,6 +13,7 @@ import { ExportFormatType, ReportFilterModel } from 'src/app/models/ReportFilter
 pdfMake.vfs = (pdfFonts as any).vfs;
 import * as XLSX from 'xlsx';
 import { CrystalReportService } from 'src/app/service/crystal-report.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -37,13 +38,22 @@ export class SalesComponent implements OnInit {
   vatvalue: number = 0;             // ✅ Declare
   pdfSource: string | undefined;
   customersList: any;
+  customer: any;
   constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService,
-    private report: CrystalReportService
+    private report: CrystalReportService,
+    private router: Router,
+    private route:ActivatedRoute,
   ) {
 
-
+  this.route.queryParams.subscribe(params => {
+    if (params['customer']) {
+    this. customer= JSON.parse(params['customer']);
+    
+      console.log("Received customer:", this.customer);
+    }
+  });
   }
 
   ngOnInit() {
@@ -219,10 +229,13 @@ export class SalesComponent implements OnInit {
       remark: this.salesForm.value.remark,
       printInvoice: this.salesForm.value.printInvoice,
       createdDate: new Date().toISOString(),
+      customerId:this.customer.customerMasterCustomerNo,
+      customerName:this.customer.customerMasterCustomerName,
       details: this.salesDetails.map((detail: any, index: any) => ({
         detailId: 0,
         salesId: 0,
         sI_No: index + 1,
+        item_Id:detail.item_Id,
         item_name: detail.item_name,
         qty: detail.qty,
         rate: detail.rate,
@@ -233,7 +246,6 @@ export class SalesComponent implements OnInit {
 
     this.vansales.save(payload).subscribe({
       next: (res: any) => {
-        console.log("Saved successfully", res);
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
         if (res.printInvoice) {
@@ -277,6 +289,7 @@ export class SalesComponent implements OnInit {
       const newRow = {
         si_no: this.tableData.length + 1,
         item_name: this.salesForm.value.product.displayName,
+        item_Id: this.salesForm.value.product.itemId,
         rate: this.salesForm.value.mrp,
         qty: this.salesForm.value.quantity,
         amount: this.salesForm.value.total

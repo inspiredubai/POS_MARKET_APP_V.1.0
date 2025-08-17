@@ -12,14 +12,17 @@ export class CustomerComponent implements OnInit {
   searchQuery: string = '';
   customers: Array<any> = [];
   filteredCustomers: Array<any> = [];
-
+  isLoading: boolean = true;
   constructor(private router: Router, private customerService: CustomerService) {
     
   }
-  onCustomerClick() {
-    // Navigate to the desired component, passing customer data if needed
-    this.router.navigate(['/dashboard/customer/customerdetail']);
-  }
+onCustomerClick(customer: any) {
+  this.router.navigate(
+    ['/dashboard/customer/customerdetail'],
+    { queryParams: { customer: JSON.stringify(customer) } }
+  );
+}
+
   showMap() {
     // Navigate to the desired component, passing customer data if needed
     this.router.navigate(['/dashboard/customer/map']);
@@ -27,19 +30,39 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.getCustomersList();
   }
-  getCustomersList() {
-    this.customerService.getCustomersList().subscribe((response: any) => {
-      this.customers = response?.resultSet?.customerMasters;
-      this.filteredCustomers = this.customers;
-      this.filteredCustomers.forEach(x => {
-        x.customerMasterCustomerAddress = 'AL AJWAH AL THAHABIAH SUPERMARKET';
-      });
+getCustomersList() {
+  this.isLoading = true;
+  this.customerService.getCustomersList().subscribe((response: any) => {
+    this.customers = response?.resultSet?.customerMasters || [];
+    this.filteredCustomers = [...this.customers];
+
+    this.filteredCustomers.forEach(x => {
+      x.customerMasterCustomerAddress = 'AL AJWAH AL THAHABIAH SUPERMARKET';
     });
+
+    this.isLoading = false; 
+  }, error => {
+    this.isLoading = false;
+  });
+}
+
+filterCustomers(event: Event) {
+  const query = (event.target as HTMLInputElement).value.toLowerCase();
+
+  if (!query || query.trim() === '') {
+    this.filteredCustomers = [...this.customers];
+    return;
   }
-  filterCustomers(event: Event) {
-    const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredCustomers = this.customers.filter(customer =>
-      customer.customer.customerMasterCustomerName.toLowerCase().includes(query)
-    );
-  }
+
+  this.filteredCustomers = this.customers.filter(customer =>
+    customer.customerMasterCustomerName?.toLowerCase().includes(query) ||
+    customer.customerMasterCustomerNo?.toLowerCase().includes(query) ||
+    customer.customerMasterCustomerAddress?.toLowerCase().includes(query)
+  );
+}
+
+// onCustomerClick() {
+//   // your click logic here
+// }
+
 }

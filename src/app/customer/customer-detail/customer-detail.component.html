@@ -12,18 +12,18 @@
   <!-- Customer Information -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>ABU SHABAS GROCERY</ion-card-title>
+      <ion-card-title>{{customer?.customerMasterCustomerName}}</ion-card-title>
     </ion-card-header>
     <ion-card-content class="paracontent">
       <p><strong>Phone:</strong> 0567119008</p>
-      <p><strong>Address:</strong> Meena Road</p>
+      <p><strong>Address:</strong>{{customer?.customerMasterCustomerAddress}}</p>
       <p><strong>Contact person:</strong></p>
       <p><strong>Contact person phone:</strong></p>
       <p><strong>Credit Limit:</strong> 0.00</p>
       <p><strong>Credit Balance:</strong> 0.00</p>
       <p><strong>TRN:</strong></p>
       <p><strong>Customized Price group:</strong> Not assigned</p>
-      <p><strong>Customer Code:</strong></p>
+      <p><strong>Customer Code:</strong>{{customer?.customerMasterCustomerNo}}</p>
     </ion-card-content>
   </ion-card>
 
