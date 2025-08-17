@@ -22,7 +22,7 @@ export class MapComponent  implements OnInit {
     );
   }
   details(userid:any){
-    this.router.navigate(['locationdetails'],{queryParams:{id:userid}})
+    this.router.navigate(['/dashboard/customer/locationdetails'],{queryParams:{id:userid}})
   }
 
 }

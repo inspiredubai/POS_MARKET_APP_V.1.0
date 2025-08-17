@@ -10,20 +10,19 @@ import { BillWiseReceiptComponent } from './bill-wise-receipt/bill-wise-receipt.
 import { ItemWiseSalesReturnComponent } from './item-wise-sales-return/item-wise-sales-return.component';
 import { MapComponent } from './map/map.component';
 import { LocationDetailsComponent } from './location.details/location.details.component';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { CustomerService } from '../service/customer.service';
+import { CustomerRoutingModule } from './customer-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
 @NgModule({
-  
-  declarations: [CustomerComponent,CustomerDetailComponent,BillWiseReceiptComponent,ItemWiseSalesReturnComponent,LocationDetailsComponent,MapComponent],
-  imports: [IonicModule, FormsModule,CommonModule, 
-    ReactiveFormsModule, RouterModule.forChild([{ path: '', component: CustomerComponent },
-  {path:'billwisereceipt', component:BillWiseReceiptComponent},
-{path:'itemwisesalesreturn', component:ItemWiseSalesReturnComponent},
-  {path:'map', component:MapComponent},
-  {path:'locationdetails', component:  LocationDetailsComponent},
-  ])],
-  exports: [CustomerComponent,],
 
+  declarations: [CustomerComponent, CustomerDetailComponent, BillWiseReceiptComponent, ItemWiseSalesReturnComponent, LocationDetailsComponent, MapComponent],
+  imports: [IonicModule, FormsModule, CommonModule,HttpClientModule, CustomerRoutingModule,
+    ReactiveFormsModule, SharedModule],
+  exports: [CustomerComponent,],
+  providers: [CustomerService, provideHttpClient(withFetch())]
 })
 export class CustomerModule { }

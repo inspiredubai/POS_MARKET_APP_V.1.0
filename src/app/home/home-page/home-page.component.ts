@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
-import { PopoveroptionComponent } from './popoveroption/popoveroption.component';
+import { PopoveroptionComponent } from '../popoveroption/popoveroption.component';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: 'home-page.component.html',
+  styleUrls: ['home-page.component.scss'],
 })
 export class HomePage {
 

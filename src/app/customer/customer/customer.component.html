@@ -17,9 +17,9 @@
   <ion-list>
     <ion-item *ngFor="let customer of filteredCustomers" (click)="onCustomerClick()">
       <ion-label>
-        <h2>{{ customer.name }}</h2>
-        <p>{{ customer.address }}</p> 
-        <p>{{ customer.balance | currency }}</p>
+        <h2>{{customer.customerMasterCustomerNo}} | {{ customer.customerMasterCustomerName }}</h2>
+        <p>{{ customer.customerMasterCustomerAddress }}</p> 
+        <!-- <p>{{ customer?.balance | currency }}</p> -->
       </ion-label>
     </ion-item>
   </ion-list>
@@ -34,3 +34,5 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+<app-footer></app-footer>

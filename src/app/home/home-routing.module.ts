@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePage } from './home.page';
-import { DashboardComponent } from '../dashboard.component';
 import { PopoveroptionComponent } from './popoveroption/popoveroption.component';
- 
+import { HomePage } from './home-page/home-page.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -11,13 +10,12 @@ const routes: Routes = [
   },
   {
     path: 'popoveroption',
-    component:  PopoveroptionComponent,
-  },
- 
+    component: PopoveroptionComponent,
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

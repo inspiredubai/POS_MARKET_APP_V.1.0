@@ -6,12 +6,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient, withFetch } from '@angular/common/http';
  // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 @NgModule({
-  declarations: [AppComponent,DashboardComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, 
     FormsModule,ReactiveFormsModule,
     CommonModule,
@@ -21,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [
     // BarcodeScanner,
      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

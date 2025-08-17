@@ -10,14 +10,14 @@ export class CustomerDetailComponent  implements OnInit {
 
   constructor(private router: Router) { }
   showSales(){
-    this.router.navigate(['/sales']);
+    this.router.navigate(['/dashboard/customer/sales']);
   }
   showBillWiseReceipt(){
-    this.router.navigate(['/billwisereceipt']);
+    this.router.navigate(['/dashboard/customer/billwisereceipt']);
 
   }
   showItemWiseSalesReturn(){
-    this.router.navigate(['/itemwisesalesreturn']);
+    this.router.navigate(['/dashboard/customer/itemwisesalesreturn']);
   }
   ngOnInit() {}
 

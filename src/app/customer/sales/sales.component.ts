@@ -36,7 +36,7 @@ export class SalesComponent implements OnInit {
   VATEXLUDE: boolean = false;       // ✅ Declare
   vatvalue: number = 0;             // ✅ Declare
   pdfSource: string | undefined;
-
+  customersList: any;
   constructor(private fb: FormBuilder,
     private vansales: VansalesService,
     private toastService: ToastService,
@@ -156,7 +156,7 @@ export class SalesComponent implements OnInit {
     });
 
   }
-
+  
   get f(): { [key: string]: AbstractControl } {
     return this.salesForm.controls;
   }

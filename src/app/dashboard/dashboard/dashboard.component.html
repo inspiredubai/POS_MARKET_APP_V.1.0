@@ -27,7 +27,18 @@
             </ion-tab-bar>
         </ion-tabs> -->
  
-
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Home
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="presentPopover($event)">
+                <ion-icon slot="icon-only" name="ellipsis-vertical" style="color: whitesmoke"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-grid>
     <ion-row>
@@ -174,23 +185,4 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-      <ion-icon name="home"></ion-icon>
-      Home
-    </ion-tab-button>
-    <ion-tab-button tab="customer">
-      <ion-icon name="people-outline"></ion-icon>
-      Customer
-    </ion-tab-button>
-    <ion-tab-button tab="vanstock">
-      <ion-icon name="bus-outline"></ion-icon>
-      Van Stock
-    </ion-tab-button>
-    <ion-tab-button tab="report">
-      <ion-icon name="newspaper-outline"></ion-icon>
-      Report
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+<app-footer></app-footer>

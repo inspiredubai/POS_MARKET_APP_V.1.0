@@ -24,7 +24,7 @@ salesForm:any
               private fb: FormBuilder
   ) { }
   showSales(){
-    this.router.navigate(['/dashboard/home'])
+    this.router.navigate(['/home'])
   }
   ngOnInit() {
      this.salesForm = this.fb.group({
@@ -53,7 +53,7 @@ loginRequest() {
   this.loginApi.loginRequest(payload).subscribe({
     next: (res: any) => {
       if (res?.valid) {
-        this.router.navigate(['/dashboard/home']);
+        this.router.navigate(['/dashboard/']);
           this.loading=false
       } else {
         this.toastService.show('Invalid Credential', 'danger');

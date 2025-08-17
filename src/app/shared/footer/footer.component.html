@@ -1,3 +1,22 @@
-<p>
-  footer works!
-</p>
+<div class="footer-container">
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button (click)="navigate('/dashboard')">
+        <ion-icon name="home"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button (click)="navigate('/dashboard/customer')">
+        <ion-icon name="people-outline"></ion-icon>
+        Customer
+      </ion-tab-button>
+      <ion-tab-button (click)="navigate('/dashboard/vanstock')">
+        <ion-icon name="bus-outline"></ion-icon>
+        Van Stock
+      </ion-tab-button>
+      <ion-tab-button (click)="navigate('/dashboard/report')">
+        <ion-icon name="newspaper-outline"></ion-icon>
+        Report
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</div>
