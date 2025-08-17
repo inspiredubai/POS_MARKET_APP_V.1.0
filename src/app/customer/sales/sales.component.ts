@@ -49,9 +49,7 @@ export class SalesComponent implements OnInit {
 
   this.route.queryParams.subscribe(params => {
     if (params['customer']) {
-    this. customer= JSON.parse(params['customer']);
-    
-      console.log("Received customer:", this.customer);
+    this. customer= JSON.parse(params['customer']);    
     }
   });
   }
