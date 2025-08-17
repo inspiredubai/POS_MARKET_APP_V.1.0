@@ -248,6 +248,8 @@ export class SalesComponent implements OnInit {
       next: (res: any) => {
         this.toastService.show('Data saved successfully', 'success');
         this.loading = false;
+        this.salesForm.reset();
+        this.tableData=[];
         if (res.printInvoice) {
           this.downloadPDF(res)
         }
