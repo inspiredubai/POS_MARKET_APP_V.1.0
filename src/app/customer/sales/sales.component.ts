@@ -428,7 +428,7 @@ export class SalesComponent implements OnInit {
       SelectionFormula: '',
       Parameters: [],
       Queries: [
-        `select * from vw_SalesInvoiceVan where salesid='${102}'`,
+        `select * from vw_SalesInvoiceVan where salesid='${106}'`,
       ],
       SP_Queries: [],
       ExportType: type === 'pdf' ? ExportFormatType.PortableDocFormat : ExportFormatType.ExcelWorkbook,

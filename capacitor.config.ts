@@ -8,7 +8,8 @@ const config: CapacitorConfig = {
     androidScheme: 'http',
     cleartext: true,
     allowNavigation: [
-      'http://103.74.54.207:8207/api/*'
+      'http://103.74.54.207:8207/api/*',
+      'http://103.74.54.207:8585/api/*'
     ]
   }
 };
