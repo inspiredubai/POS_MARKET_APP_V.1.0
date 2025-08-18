@@ -235,8 +235,11 @@ export class SalesComponent implements OnInit {
         sI_No: index + 1,
         item_Id:detail.item_Id,
         item_name: detail.item_name,
+        unit_Id:detail.unitId,
         qty: detail.qty,
         rate: detail.rate,
+        grossAmt:detail.qty * detail.rate,
+        discountAmount:detail.discountAmount,
         amount: detail.amount,
         createdDate: new Date().toISOString()
       }))
@@ -292,7 +295,9 @@ export class SalesComponent implements OnInit {
         item_Id: this.salesForm.value.product.itemId,
         rate: this.salesForm.value.mrp,
         qty: this.salesForm.value.quantity,
-        amount: this.salesForm.value.total
+        amount: this.salesForm.value.total,
+        discountAmount:this.salesForm.value.discountPercent,
+        unitId:this.salesForm.value.product.unitId
       };
       this.tableData.push(newRow);
       const tenderedAmountValue = this.salesForm.get('tenderedAmount')?.value;
@@ -419,11 +424,11 @@ export class SalesComponent implements OnInit {
   rptFilter: ReportFilterModel | undefined;
   crystalReport(type: any) {
     this.rptFilter = {
-      ReportName: 'SalesVoucherVAT',
+      ReportName: 'SalesVoucherVAN',
       SelectionFormula: '',
       Parameters: [],
       Queries: [
-        `select * from vw_salesinvoice where salesvoucherid='${452}'`,
+        `select * from vw_SalesInvoiceVan where salesid='${102}'`,
       ],
       SP_Queries: [],
       ExportType: type === 'pdf' ? ExportFormatType.PortableDocFormat : ExportFormatType.ExcelWorkbook,

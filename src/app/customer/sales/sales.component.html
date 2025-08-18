@@ -141,7 +141,9 @@
                   <th>Item_Name</th>
                   <th>Rate</th>
                   <th>Qty</th>
-                  <th>Amount</th>
+                  <th>Gross Amt</th>
+                  <th>Discount</th>
+                  <th>Net Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -150,6 +152,8 @@
                   <td>{{ row.item_name }}</td>
                   <td>{{ row.rate }}</td>
                   <td>{{ row.qty }}</td>
+                  <td>{{ row.qty * row.rate}}</td>
+                  <td>{{row.discountAmount}}</td>
                   <td>{{ row.amount }}</td>
                 </tr>
               </tbody>

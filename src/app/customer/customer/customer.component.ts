@@ -37,7 +37,7 @@ getCustomersList() {
     this.filteredCustomers = [...this.customers];
 
     this.filteredCustomers.forEach(x => {
-      x.customerMasterCustomerAddress = 'AL AJWAH AL THAHABIAH SUPERMARKET';
+      x.customerMasterCustomerAddress = '';
     });
 
     this.isLoading = false; 
