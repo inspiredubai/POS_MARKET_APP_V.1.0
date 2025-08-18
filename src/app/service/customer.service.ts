@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CustomerService {
-  baseUrl: string = environment.cutomerApiBaseUrl;
+  baseUrl: string = environment.apiRootURL;
+
   constructor(private httpClient: HttpClient) { }
 
   getCustomersList(){
