@@ -14,6 +14,9 @@ pdfMake.vfs = (pdfFonts as any).vfs;
 import * as XLSX from 'xlsx';
 import { CrystalReportService } from 'src/app/service/crystal-report.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
 
 
 @Component({
@@ -45,6 +48,7 @@ export class SalesComponent implements OnInit {
     private report: CrystalReportService,
     private router: Router,
     private route:ActivatedRoute,
+     private platform: Platform
   ) {
 
   this.route.queryParams.subscribe(params => {
@@ -421,93 +425,160 @@ export class SalesComponent implements OnInit {
   // for crustal report
 
 
+  // rptFilter: ReportFilterModel | undefined;
+  // crystalReport(type: any) {
+  //   this.rptFilter = {
+  //     ReportName: 'SalesVoucherVAN',
+  //     SelectionFormula: '',
+  //     Parameters: [],
+  //     Queries: [
+  //       `select * from vw_SalesInvoiceVan where salesid='${106}'`,
+  //     ],
+  //     SP_Queries: [],
+  //     ExportType: type === 'pdf' ? ExportFormatType.PortableDocFormat : ExportFormatType.ExcelWorkbook,
+
+  //   };
+
+  //   this.report.getReportPrint(this.rptFilter, true)
+  //     .subscribe((response: any) => {
+  //       if (type === 'pdf') {
+  //         const blob = new Blob([response], { type: 'application/pdf' });
+  //         this.pdfSource = URL.createObjectURL(blob);
+  //         window.open(this.pdfSource);
+
+  //       } else {
+  //         const excelBlob = new Blob([response], {
+  //           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  //         });
+
+  //         const reader = new FileReader();
+
+  //         reader.onload = (e: ProgressEvent<FileReader>) => {
+  //           const data = new Uint8Array(e.target!.result as ArrayBuffer);
+  //           const workbook = XLSX.read(data, { type: 'array' });
+
+  //           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+  //           const htmlContent = XLSX.utils.sheet_to_html(worksheet);
+
+  //           const fileUrl = URL.createObjectURL(excelBlob);
+  //           const filename = `${this.rptFilter?.ReportName}.xlsx`;
+
+  //           const previewWindow = window.open('', '_blank');
+  //           if (previewWindow) {
+  //             previewWindow.document.write(`
+  //                     <html>
+  //                       <head>
+  //                         <title>Excel Preview - ${filename}</title>
+  //                         <style>
+  //                           body { font-family: Arial, sans-serif; padding: 20px; }
+  //                           button {
+  //                             padding: 10px 20px;
+  //                             margin-bottom: 20px;
+  //                             background-color: #007bff;
+  //                             color: white;
+  //                             border: none;
+  //                             border-radius: 4px;
+  //                             cursor: pointer;
+  //                           }
+  //                           button:hover {
+  //                             background-color: #0056b3;
+  //                           }
+  //                           table { border-collapse: collapse; width: 100%; }
+  //                           td, th { border: 1px solid #ccc; padding: 8px; }
+  //                         </style>
+  //                       </head>
+  //                       <body>
+  //                         <button onclick="downloadExcel()">Download Excel</button>
+  //                         ${htmlContent}
+  //                         <script>
+  //                           function downloadExcel() {
+  //                             const link = document.createElement('a');
+  //                             link.href = '${fileUrl}';
+  //                             link.download = '${filename}';
+  //                             link.click();
+  //                           }
+  //                         </script>
+  //                       </body>
+  //                     </html>
+  //                   `);
+  //             previewWindow.document.close();
+  //           } else {
+  //             console.error('Failed to open preview window (popup blocker?)');
+  //           }
+  //         };
+
+  //         reader.readAsArrayBuffer(excelBlob);
+  //       }
+  //     });
+  // }
   rptFilter: ReportFilterModel | undefined;
-  crystalReport(type: any) {
-    this.rptFilter = {
-      ReportName: 'SalesVoucherVAN',
-      SelectionFormula: '',
-      Parameters: [],
-      Queries: [
-        `select * from vw_SalesInvoiceVan where salesid='${106}'`,
-      ],
-      SP_Queries: [],
-      ExportType: type === 'pdf' ? ExportFormatType.PortableDocFormat : ExportFormatType.ExcelWorkbook,
+async crystalReport(type: any) {
+  this.rptFilter = {
+    ReportName: 'SalesVoucherVAN',
+    SelectionFormula: '',
+    Parameters: [],
+    Queries: [
+      `select * from vw_SalesInvoiceVan where salesid='${106}'`,
+    ],
+    SP_Queries: [],
+    ExportType: type === 'pdf'
+      ? ExportFormatType.PortableDocFormat
+      : ExportFormatType.ExcelWorkbook,
+  };
 
-    };
+  this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: any) => {
+    if (this.platform.is('desktop') || this.platform.is('mobileweb')) {
+      // ✅ Web logic (same as before)
+      if (type === 'pdf') {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const pdfSource = URL.createObjectURL(blob);
+        window.open(pdfSource);
+      } else {
+        const excelBlob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const fileUrl = URL.createObjectURL(excelBlob);
+        const a = document.createElement('a');
+        a.href = fileUrl;
+        a.download = `${this.rptFilter?.ReportName}.xlsx`;
+        a.click();
+      }
+    } else {
+      // ✅ Mobile App logic
+      const fileName = `${this.rptFilter?.ReportName}.${type === 'pdf' ? 'pdf' : 'xlsx'}`;
+      const base64Data = this.arrayBufferToBase64(response);
 
-    this.report.getReportPrint(this.rptFilter, true)
-      .subscribe((response: any) => {
-        if (type === 'pdf') {
-          const blob = new Blob([response], { type: 'application/pdf' });
-          this.pdfSource = URL.createObjectURL(blob);
-          window.open(this.pdfSource);
-
-        } else {
-          const excelBlob = new Blob([response], {
-            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-          });
-
-          const reader = new FileReader();
-
-          reader.onload = (e: ProgressEvent<FileReader>) => {
-            const data = new Uint8Array(e.target!.result as ArrayBuffer);
-            const workbook = XLSX.read(data, { type: 'array' });
-
-            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-            const htmlContent = XLSX.utils.sheet_to_html(worksheet);
-
-            const fileUrl = URL.createObjectURL(excelBlob);
-            const filename = `${this.rptFilter?.ReportName}.xlsx`;
-
-            const previewWindow = window.open('', '_blank');
-            if (previewWindow) {
-              previewWindow.document.write(`
-                      <html>
-                        <head>
-                          <title>Excel Preview - ${filename}</title>
-                          <style>
-                            body { font-family: Arial, sans-serif; padding: 20px; }
-                            button {
-                              padding: 10px 20px;
-                              margin-bottom: 20px;
-                              background-color: #007bff;
-                              color: white;
-                              border: none;
-                              border-radius: 4px;
-                              cursor: pointer;
-                            }
-                            button:hover {
-                              background-color: #0056b3;
-                            }
-                            table { border-collapse: collapse; width: 100%; }
-                            td, th { border: 1px solid #ccc; padding: 8px; }
-                          </style>
-                        </head>
-                        <body>
-                          <button onclick="downloadExcel()">Download Excel</button>
-                          ${htmlContent}
-                          <script>
-                            function downloadExcel() {
-                              const link = document.createElement('a');
-                              link.href = '${fileUrl}';
-                              link.download = '${filename}';
-                              link.click();
-                            }
-                          </script>
-                        </body>
-                      </html>
-                    `);
-              previewWindow.document.close();
-            } else {
-              console.error('Failed to open preview window (popup blocker?)');
-            }
-          };
-
-          reader.readAsArrayBuffer(excelBlob);
-        }
+      // Save file to device
+      await Filesystem.writeFile({
+        path: fileName,
+        data: base64Data,
+        directory: Directory.Documents
       });
-  }
 
+      // Open file with native viewer
+      await FileOpener.open({
+        filePath: (await Filesystem.getUri({
+          path: fileName,
+          directory: Directory.Documents
+        })).uri,
+        contentType: type === 'pdf'
+          ? 'application/pdf'
+          : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+    }
+  });
+}
+
+// Helper to convert arrayBuffer -> base64
+arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
 }
 
 

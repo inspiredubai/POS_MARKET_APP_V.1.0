@@ -55,10 +55,6 @@ export class CrystalReportService {
     const port = portAndPath[0];
     const clients = this.getClientMapping();
     let Client: string;
-    // if (parts[1] === '//192.168.1.249') {
-    //   Client = clients["192.168.1.249"];
-    // } else {
-    // }
       Client = clients["default"];
 
 
