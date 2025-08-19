@@ -48,17 +48,18 @@ getCustomersList() {
 
 filterCustomers(event: Event) {
   const query = (event.target as HTMLInputElement).value.toLowerCase();
-
   if (!query || query.trim() === '') {
     this.filteredCustomers = [...this.customers];
     return;
   }
-
   this.filteredCustomers = this.customers.filter(customer =>
-    customer.customerMasterCustomerName?.toLowerCase().includes(query) ||
-    customer.customerMasterCustomerNo?.toLowerCase().includes(query) ||
-    customer.customerMasterCustomerAddress?.toLowerCase().includes(query)
+    customer.customerMasterCustomerName?.toLowerCase().includes(query)
+    
+    //  ||
+    // customer.customerMasterCustomerNo?.toLowerCase().includes(query) ||
+    // customer.customerMasterCustomerAddress?.toLowerCase().includes(query)
   );
+
 }
 
 // onCustomerClick() {
