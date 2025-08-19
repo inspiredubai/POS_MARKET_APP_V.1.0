@@ -512,73 +512,58 @@ export class SalesComponent implements OnInit {
   //     });
   // }
   rptFilter: ReportFilterModel | undefined;
-async crystalReport(type: any) {
-  this.rptFilter = {
-    ReportName: 'SalesVoucherVAN',
-    SelectionFormula: '',
-    Parameters: [],
-    Queries: [
-      `select * from vw_SalesInvoiceVan where salesid='${106}'`,
-    ],
-    SP_Queries: [],
-    ExportType: type === 'pdf'
-      ? ExportFormatType.PortableDocFormat
-      : ExportFormatType.ExcelWorkbook,
-  };
+ crystalReport() {
+    this.rptFilter = {
+      ReportName: 'SalesVoucherVAN',
+      SelectionFormula: '',
+      Parameters: [],
+      Queries: [`select * from vw_SalesInvoiceVan where salesid='${106}'`],
+      SP_Queries: [],
+      ExportType: 5 // PortableDocFormat for PDF
+    };
 
-  this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: any) => {
-    if (this.platform.is('desktop') || this.platform.is('mobileweb')) {
-      // ✅ Web logic (same as before)
-      if (type === 'pdf') {
-        const blob = new Blob([response], { type: 'application/pdf' });
-        const pdfSource = URL.createObjectURL(blob);
-        window.open(pdfSource);
+    this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: Blob) => {
+      if (this.platform.is('desktop') || this.platform.is('mobileweb')) {
+        // ✅ Browser: open PDF directly
+        const pdfUrl = URL.createObjectURL(response);
+        window.open(pdfUrl, '_blank');
       } else {
-        const excelBlob = new Blob([response], {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        // ✅ Mobile: Save & open with native PDF viewer
+        const fileName = `${this.rptFilter?.ReportName}.pdf`;
+
+        // Convert blob -> base64
+        const base64Data = await this.blobToBase64(response);
+
+        // Save file
+        await Filesystem.writeFile({
+          path: fileName,
+          data: base64Data as string,
+          directory: Directory.Documents
         });
-        const fileUrl = URL.createObjectURL(excelBlob);
-        const a = document.createElement('a');
-        a.href = fileUrl;
-        a.download = `${this.rptFilter?.ReportName}.xlsx`;
-        a.click();
-      }
-    } else {
-      // ✅ Mobile App logic
-      const fileName = `${this.rptFilter?.ReportName}.${type === 'pdf' ? 'pdf' : 'xlsx'}`;
-      const base64Data = this.arrayBufferToBase64(response);
 
-      // Save file to device
-      await Filesystem.writeFile({
-        path: fileName,
-        data: base64Data,
-        directory: Directory.Documents
-      });
-
-      // Open file with native viewer
-      await FileOpener.open({
-        filePath: (await Filesystem.getUri({
+        // Open file with native viewer
+        const uriResult = await Filesystem.getUri({
           path: fileName,
           directory: Directory.Documents
-        })).uri,
-        contentType: type === 'pdf'
-          ? 'application/pdf'
-          : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      });
-    }
-  });
-}
+        });
 
-// Helper to convert arrayBuffer -> base64
-arrayBufferToBase64(buffer: ArrayBuffer): string {
-  let binary = '';
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
+        await FileOpener.open({
+          filePath: uriResult.uri,
+          contentType: 'application/pdf'
+        });
+      }
+    });
   }
-  return btoa(binary);
-}
+
+  // Helper: convert Blob -> Base64
+  private blobToBase64(blob: Blob): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob); // 👈 converts blob to base64
+    });
+  }
 }
 
 
