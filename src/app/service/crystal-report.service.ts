@@ -48,14 +48,14 @@ export class CrystalReportService {
   }
 
   public getReportPrint(data: any, isByQuery: boolean) {
-
+debugger
     const parts = this.baseUrl.split(':');
 
     const portAndPath = parts[2].split('/');
     const port = portAndPath[0];
     const clients = this.getClientMapping();
     let Client: string;
-      Client = clients["default"];
+      Client = clients["8064"];
 
 
     const rptOptions = {
@@ -75,10 +75,12 @@ export class CrystalReportService {
 
 
   downloadReport(data: ReportFilterModel) {
+    debugger
     const parts = this.baseUrl.split(':');
 
     const portAndPath = parts[2].split('/');
     const port = portAndPath[0];
+    
     const clients = this.getClientMapping();
 
     // Determine the client based on the IP address or port
