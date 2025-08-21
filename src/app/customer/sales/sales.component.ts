@@ -233,6 +233,8 @@ export class SalesComponent implements OnInit {
       createdDate: new Date().toISOString(),
       customerId:this.customer.customerMasterCustomerNo,
       customerName:this.customer.customerMasterCustomerName,
+      locationId:6,
+      currencyId:5,
       details: this.salesDetails.map((detail: any, index: any) => ({
         detailId: 0,
         salesId: 0,
@@ -256,8 +258,8 @@ export class SalesComponent implements OnInit {
         this.salesForm.reset();
         this.tableData=[];
         if (res.printInvoice) {
-          this.downloadPDF(res)
-        }
+        this.crystalReport(res.salesId)    
+            }
       },
       error: (err) => {
         console.error("Error saving", err);
@@ -512,12 +514,12 @@ export class SalesComponent implements OnInit {
   //     });
   // }
   rptFilter: ReportFilterModel | undefined;
- crystalReport() {
+ crystalReport(id:number) {
     this.rptFilter = {
       ReportName: 'SalesVoucherVAN',
       SelectionFormula: '',
       Parameters: [],
-      Queries: [`select * from vw_SalesInvoiceVan where salesid='${106}'`],
+      Queries: [`select * from vw_SalesInvoiceVan where salesid='${id}'`],
       SP_Queries: [],
       ExportType: 5 // PortableDocFormat for PDF
     };
