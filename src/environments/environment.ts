@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // apiRootURL: 'http://103.74.54.207:8207/api/',
+//  apiRootURL: 'http://103.74.54.207:8207/api/',
   //  apiRootURL:'http://localhost:53447/api/',
         apiRootURL: 'http://103.74.54.207:8064/api/',
 
