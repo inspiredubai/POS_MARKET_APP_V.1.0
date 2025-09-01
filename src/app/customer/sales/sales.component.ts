@@ -523,7 +523,7 @@ async crystalReport(id: number) {
     Parameters: [],
     Queries: [`select * from vw_SalesInvoiceVan where salesid='${id}'`],
     SP_Queries: [],
-    ExportType: 5 // PDF
+    ExportType: 5
   };
 
   this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: Blob) => {
