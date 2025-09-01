@@ -528,9 +528,8 @@ async crystalReport(id: number) {
 
   this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: Blob) => {
     const fileName = `${this.rptFilter?.ReportName}.pdf`;
-debugger
+
     if (this.platform.is('desktop') || this.platform.is('mobileweb')) {
-      // ✅ Browser: Download PDF
       const pdfUrl = URL.createObjectURL(response);
       const a = document.createElement('a');
       a.href = pdfUrl;
@@ -539,27 +538,34 @@ debugger
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(pdfUrl);
-
+      console.log('PDF downloaded in browser');
     } else {
-      // ✅ Mobile: Save & Open PDF (Capacitor)
       try {
+        console.log('Starting mobile save...');
+
         const base64Data = await this.blobToBase64(response) as string;
         const pureBase64 = base64Data.split(',')[1];
 
-        // ✅ Save in Documents (Accessible to user)
+        if (!pureBase64) {
+          console.error('Base64 conversion failed!');
+          return;
+        }
+
+        await Filesystem.requestPermissions();
+
         const savedFile = await Filesystem.writeFile({
-          path: fileName,
+          path: `Download/${fileName}`, 
           data: pureBase64,
-          directory: Directory.Documents,
+          directory: Directory.ExternalStorage,
           recursive: true
         });
 
         console.log('File saved at:', savedFile.uri);
 
-        // ✅ Get Native File Path
-        const fileUri = Capacitor.convertFileSrc(savedFile.uri);
+        const fileUri = savedFile.uri.startsWith('file://') ? savedFile.uri : 'file://' + savedFile.uri;
 
-        // ✅ Open PDF using native viewer
+        console.log('Opening file with external viewer:', fileUri);
+
         await FileOpener.open({
           filePath: fileUri,
           contentType: 'application/pdf'
@@ -572,7 +578,6 @@ debugger
   });
 }
 
-// ✅ Helper: Blob → Base64
 private blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -582,7 +587,6 @@ private blobToBase64(blob: Blob): Promise<string> {
   });
 }
 }
-
 
 
 
