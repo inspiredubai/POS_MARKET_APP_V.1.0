@@ -48,7 +48,7 @@ export class CrystalReportService {
   }
 
   public getReportPrint(data: any, isByQuery: boolean) {
-debugger
+
     const parts = this.baseUrl.split(':');
 
     const portAndPath = parts[2].split('/');

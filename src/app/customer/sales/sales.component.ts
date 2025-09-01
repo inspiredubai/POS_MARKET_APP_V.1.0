@@ -5,6 +5,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { IonicModule } from '@ionic/angular';
 import { ToastService } from 'src/app/service/toast.service';
 import { VansalesService } from 'src/app/service/vansales.service';
+import { Capacitor } from '@capacitor/core';
 import pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ExportFormatType, ReportFilterModel } from 'src/app/models/ReportFilterModel';
@@ -513,59 +514,73 @@ export class SalesComponent implements OnInit {
   //       }
   //     });
   // }
-  rptFilter: ReportFilterModel | undefined;
- crystalReport(id:number) {
-    this.rptFilter = {
-      ReportName: 'SalesVoucherVAN',
-      SelectionFormula: '',
-      Parameters: [],
-      Queries: [`select * from vw_SalesInvoiceVan where salesid='${id}'`],
-      SP_Queries: [],
-      ExportType: 5 // PortableDocFormat for PDF
-    };
+rptFilter: ReportFilterModel | undefined;
 
-    this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: Blob) => {
-      if (this.platform.is('desktop') || this.platform.is('mobileweb')) {
-        // ✅ Browser: open PDF directly
-        const pdfUrl = URL.createObjectURL(response);
-        window.open(pdfUrl, '_blank');
-      } else {
-        // ✅ Mobile: Save & open with native PDF viewer
-        const fileName = `${this.rptFilter?.ReportName}.pdf`;
+async crystalReport(id: number) {
+  this.rptFilter = {
+    ReportName: 'SalesVoucherVAN',
+    SelectionFormula: '',
+    Parameters: [],
+    Queries: [`select * from vw_SalesInvoiceVan where salesid='${id}'`],
+    SP_Queries: [],
+    ExportType: 5 // PDF
+  };
 
-        // Convert blob -> base64
-        const base64Data = await this.blobToBase64(response);
+  this.report.getReportPrint(this.rptFilter, true).subscribe(async (response: Blob) => {
+    const fileName = `${this.rptFilter?.ReportName}.pdf`;
+debugger
+    if (this.platform.is('desktop') || this.platform.is('mobileweb')) {
+      // ✅ Browser: Download PDF
+      const pdfUrl = URL.createObjectURL(response);
+      const a = document.createElement('a');
+      a.href = pdfUrl;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(pdfUrl);
 
-        // Save file
-        await Filesystem.writeFile({
+    } else {
+      // ✅ Mobile: Save & Open PDF (Capacitor)
+      try {
+        const base64Data = await this.blobToBase64(response) as string;
+        const pureBase64 = base64Data.split(',')[1];
+
+        // ✅ Save in Documents (Accessible to user)
+        const savedFile = await Filesystem.writeFile({
           path: fileName,
-          data: base64Data as string,
-          directory: Directory.Documents
+          data: pureBase64,
+          directory: Directory.Documents,
+          recursive: true
         });
 
-        // Open file with native viewer
-        const uriResult = await Filesystem.getUri({
-          path: fileName,
-          directory: Directory.Documents
-        });
+        console.log('File saved at:', savedFile.uri);
 
+        // ✅ Get Native File Path
+        const fileUri = Capacitor.convertFileSrc(savedFile.uri);
+
+        // ✅ Open PDF using native viewer
         await FileOpener.open({
-          filePath: uriResult.uri,
+          filePath: fileUri,
           contentType: 'application/pdf'
         });
-      }
-    });
-  }
 
-  // Helper: convert Blob -> Base64
-  private blobToBase64(blob: Blob): Promise<string | ArrayBuffer | null> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob); // 👈 converts blob to base64
-    });
-  }
+      } catch (error) {
+        console.error('Error saving or opening PDF:', error);
+      }
+    }
+  });
+}
+
+// ✅ Helper: Blob → Base64
+private blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
 }
 
 
