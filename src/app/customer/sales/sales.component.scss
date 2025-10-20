@@ -61,3 +61,46 @@ ion-card-title {
 //    .col-amount{
 // width: 85px;
 //    }
+.table-container {
+  background-color: #e0f7fa;
+  padding: 10px;
+}
+
+/* 👇 The key scroll wrapper */
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Enables horizontal scroll */
+  -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 👇 Ensure table doesn't shrink */
+.ionic-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* force scroll if screen smaller than this */
+}
+
+.ionic-table thead {
+  background-color: #00acc1;
+  color: white;
+}
+
+.ionic-table th,
+.ionic-table td {
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #ccc;
+  white-space: nowrap;
+}
+
+.ionic-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ionic-table tr:hover {
+  background-color: #f1f1f1;
+}

@@ -127,11 +127,11 @@
           </ion-grid>
         </ion-card-content>
       </ion-card>
-
-      <ion-card-header>
+<ion-card>
+     <ion-card-header>
         <ion-card-title style="font-weight: bold; font-size: 18px;">Sales Detail</ion-card-title>
       </ion-card-header>
-      <ion-grid style="background-color: #e0f7fa;">
+      <!-- <ion-grid style="background-color: #e0f7fa;">
         <ion-row>
           <ion-col size="12">
             <table class="ionic-table">
@@ -161,8 +161,46 @@
             </table>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
+   <ion-grid class="table-container"> 
+    
+    <ion-row>
+      <ion-col size="12">
 
+        <!-- 👇 This div adds horizontal scroll -->
+        <div class="table-scroll-wrapper">
+          <table class="ionic-table">
+            <thead>
+              <tr>
+                <th>SI_No</th>
+                <th>Item_Name</th>
+                <th>Rate</th>
+                <th>Qty</th>
+                <th>Gross Amt</th>
+                <th>Discount</th>
+                <th>Net Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let row of tableData">
+                <td>{{ row.si_no }}</td>
+                <td>{{ row.item_name }}</td>
+                <td>{{ row.rate }}</td>
+                <td>{{ row.qty }}</td>
+                <td>{{ row.qty * row.rate }}</td>
+                <td>{{ row.discountAmount }}</td>
+                <td>{{ row.amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- 👆 Scroll container -->
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ </ion-card>
       <ion-card>
         <ion-card-content>
           <ion-grid>
