@@ -66,8 +66,7 @@ ion-card-title {
   padding: 10px;
 }
 
-/* 👇 The key scroll wrapper */
-.table-scroll-wrapper {
+ .table-scroll-wrapper {
   width: 100%;
   overflow-x: auto; /* Enables horizontal scroll */
   -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
@@ -76,11 +75,10 @@ ion-card-title {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 👇 Ensure table doesn't shrink */
-.ionic-table {
+ .ionic-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* force scroll if screen smaller than this */
+  min-width: 800px;  
 }
 
 .ionic-table thead {
