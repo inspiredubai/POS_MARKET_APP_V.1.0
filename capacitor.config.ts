@@ -1,4 +1,4 @@
- import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.example.app',
@@ -8,10 +8,10 @@ const config: CapacitorConfig = {
     androidScheme: 'http',
     cleartext: true,
     allowNavigation: [
-      'http://103.74.54.207:8064/api/*',
-      'http://103.74.54.207:8585/api/*'
-    ]
-  }
+      'http://194.233.95.37:8064/api/*',
+      'http://194.233.95.37:8585/api/*',
+    ],
+  },
 };
 
 export default config;
