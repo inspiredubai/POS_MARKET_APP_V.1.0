@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
     cleartext: true,
     allowNavigation: [
       'http://194.233.95.37:8064/api/*',
-      'http://194.233.95.37:8585/api/*',
+      'http://194.233.95.37:8085/api/*',
     ],
   },
 };
