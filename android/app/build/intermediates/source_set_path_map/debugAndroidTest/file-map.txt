@@ -1,0 +1,7 @@
+com.example.app.test.app-tracing-1.2.0-0 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\70395b655d8b3e3121c3316e53f1c090\transformed\tracing-1.2.0\res
+com.example.app.test.app-annotation-experimental-1.4.1-1 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\99457ee3a1be2cf10842a40b5ca09c69\transformed\annotation-experimental-1.4.1\res
+com.example.app.test.app-core-1.5.0-2 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\bfef745fe0d6813a50960525dcc92f4d\transformed\core-1.5.0\res
+com.example.app.test.app-androidTest-3 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\generated\res\resValues\androidTest\debug
+com.example.app.test.app-mergeDebugAndroidTestResources-4 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.app.test.app-mergeDebugAndroidTestResources-5 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.app.test.app-merged_res-6 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\intermediates\merged_res\debugAndroidTest

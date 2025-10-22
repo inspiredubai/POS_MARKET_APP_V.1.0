@@ -1,0 +1,44 @@
+com.example.app-core-splashscreen-1.0.1-0 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\02af67d3594ada2148314bae886ebee9\transformed\core-splashscreen-1.0.1\res
+com.example.app-lifecycle-viewmodel-2.6.2-1 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\1c8b4b0f1501a33faa00864a6eb0ef4a\transformed\lifecycle-viewmodel-2.6.2\res
+com.example.app-core-runtime-2.2.0-2 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\25d31c664b03672e3208c0be7777f9e4\transformed\core-runtime-2.2.0\res
+com.example.app-startup-runtime-1.1.1-3 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\2b19c49b9055d666a310de3e6f33c8a9\transformed\startup-runtime-1.1.1\res
+com.example.app-savedstate-1.2.1-4 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\3d3e07e4c9c329b75d857f1a545e7b19\transformed\savedstate-1.2.1\res
+com.example.app-coordinatorlayout-1.2.0-5 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\44b764ef4a0c2818774bd443073d6bc9\transformed\coordinatorlayout-1.2.0\res
+com.example.app-appcompat-1.6.1-6 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\4ce7c60d257b8629ab4c81cf615a92a1\transformed\appcompat-1.6.1\res
+com.example.app-emoji2-views-helper-1.2.0-7 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\53359f3038cb13de1318f37b05a9ec5d\transformed\emoji2-views-helper-1.2.0\res
+com.example.app-savedstate-ktx-1.2.1-8 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\55e731d2b5b0c7638f9f7a4fe75c2339\transformed\savedstate-ktx-1.2.1\res
+com.example.app-lifecycle-livedata-2.6.2-9 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\57c991bb8d9ccc1257dd0c516eacac32\transformed\lifecycle-livedata-2.6.2\res
+com.example.app-activity-1.9.3-10 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\58041edbcc843b555baf22247001909d\transformed\activity-1.9.3\res
+com.example.app-emoji2-1.2.0-11 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\61f606930917a64588c199b54d3d711a\transformed\emoji2-1.2.0\res
+com.example.app-lifecycle-runtime-2.6.2-12 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\623de62444da402f88c1620300c005bd\transformed\lifecycle-runtime-2.6.2\res
+com.example.app-activity-ktx-1.9.3-13 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\6b58ae0910790dc17b8780b1dc8bd8c7\transformed\activity-ktx-1.9.3\res
+com.example.app-tracing-1.2.0-14 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\70395b655d8b3e3121c3316e53f1c090\transformed\tracing-1.2.0\res
+com.example.app-core-ktx-1.15.0-15 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\777a6d5e300c046525590ec75a3bf740\transformed\core-ktx-1.15.0\res
+com.example.app-lifecycle-livedata-core-2.6.2-16 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\7c977ace502f172fcd784696049de6cb\transformed\lifecycle-livedata-core-2.6.2\res
+com.example.app-lifecycle-runtime-ktx-2.6.2-17 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\8603ca67e8719ef310e092d495bb4d81\transformed\lifecycle-runtime-ktx-2.6.2\res
+com.example.app-appcompat-resources-1.6.1-18 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\88a6080fbc42bac50aa5f58be10a395a\transformed\appcompat-resources-1.6.1\res
+com.example.app-annotation-experimental-1.4.1-19 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\99457ee3a1be2cf10842a40b5ca09c69\transformed\annotation-experimental-1.4.1\res
+com.example.app-core-1.15.0-20 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\ae75100443d82876ed133a3b29e63ae2\transformed\core-1.15.0\res
+com.example.app-fragment-1.6.2-21 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\b7681978623fb5a34dc59f8ae14b69b9\transformed\fragment-1.6.2\res
+com.example.app-webkit-1.9.0-22 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\b948559cdc2cc7d0142d11d80ac027fd\transformed\webkit-1.9.0\res
+com.example.app-lifecycle-viewmodel-savedstate-2.6.2-23 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\bf6495435475fdf70f97641211596309\transformed\lifecycle-viewmodel-savedstate-2.6.2\res
+com.example.app-lifecycle-viewmodel-ktx-2.6.2-24 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\c0b749ba01be98a54870a6b41206339d\transformed\lifecycle-viewmodel-ktx-2.6.2\res
+com.example.app-lifecycle-process-2.6.2-25 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\d18a112f33df589580b1e7f15e00b6ec\transformed\lifecycle-process-2.6.2\res
+com.example.app-zxing-android-embedded-4.3.0-26 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\f16dc51de4392ecc6899d5f97d7e62a0\transformed\zxing-android-embedded-4.3.0\res
+com.example.app-profileinstaller-1.3.1-27 C:\Users\AFSAR RIAZ\.gradle\caches\transforms-3\fdac71ace54bca54b6ae9e990cf9ac7e\transformed\profileinstaller-1.3.1\res
+com.example.app-pngs-28 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\generated\res\pngs\debug
+com.example.app-resValues-29 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\generated\res\resValues\debug
+com.example.app-packageDebugResources-30 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.app-packageDebugResources-31 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.app-merged_res-32 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\build\intermediates\merged_res\debug
+com.example.app-debug-33 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\src\debug\res
+com.example.app-main-34 E:\Inspire\POS_MARKET_APP_V.1.0\android\app\src\main\res
+com.example.app-packaged_res-35 E:\Inspire\POS_MARKET_APP_V.1.0\android\capacitor-cordova-android-plugins\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-36 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor-community\barcode-scanner\android\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-37 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor-community\file-opener\android\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-38 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor\android\capacitor\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-39 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor\app\android\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-40 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor\filesystem\android\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-41 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor\haptics\android\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-42 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor\keyboard\android\build\intermediates\packaged_res\debug
+com.example.app-packaged_res-43 E:\Inspire\POS_MARKET_APP_V.1.0\node_modules\@capacitor\status-bar\android\build\intermediates\packaged_res\debug
