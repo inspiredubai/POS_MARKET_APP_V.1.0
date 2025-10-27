@@ -140,23 +140,19 @@ var nativeBridge = (function (exports) {
         return { data: body, type: 'json' };
     };
     const CAPACITOR_HTTP_INTERCEPTOR = '/_capacitor_http_interceptor_';
-    const CAPACITOR_HTTPS_INTERCEPTOR = '/_capacitor_https_interceptor_';
+    const CAPACITOR_HTTP_INTERCEPTOR_URL_PARAM = 'u';
     // TODO: export as Cap function
     const isRelativeOrProxyUrl = (url) => !url ||
         !(url.startsWith('http:') || url.startsWith('https:')) ||
-        url.indexOf(CAPACITOR_HTTP_INTERCEPTOR) > -1 ||
-        url.indexOf(CAPACITOR_HTTPS_INTERCEPTOR) > -1;
+        url.indexOf(CAPACITOR_HTTP_INTERCEPTOR) > -1;
     // TODO: export as Cap function
     const createProxyUrl = (url, win) => {
         var _a, _b;
         if (isRelativeOrProxyUrl(url))
             return url;
-        const proxyUrl = new URL(url);
         const bridgeUrl = new URL((_b = (_a = win.Capacitor) === null || _a === void 0 ? void 0 : _a.getServerUrl()) !== null && _b !== void 0 ? _b : '');
-        const isHttps = proxyUrl.protocol === 'https:';
-        bridgeUrl.search = proxyUrl.search;
-        bridgeUrl.hash = proxyUrl.hash;
-        bridgeUrl.pathname = `${isHttps ? CAPACITOR_HTTPS_INTERCEPTOR : CAPACITOR_HTTP_INTERCEPTOR}/${encodeURIComponent(proxyUrl.host)}${proxyUrl.pathname}`;
+        bridgeUrl.pathname = CAPACITOR_HTTP_INTERCEPTOR;
+        bridgeUrl.searchParams.append(CAPACITOR_HTTP_INTERCEPTOR_URL_PARAM, url);
         return bridgeUrl.toString();
     };
     const initBridge = (w) => {
@@ -501,6 +497,15 @@ var nativeBridge = (function (exports) {
                 if (doPatchHttp) {
                     // fetch patch
                     window.fetch = async (resource, options) => {
+                        const headers = new Headers(options === null || options === void 0 ? void 0 : options.headers);
+                        const contentType = headers.get('Content-Type') || headers.get('content-type');
+                        if ((options === null || options === void 0 ? void 0 : options.body) instanceof FormData &&
+                            (contentType === null || contentType === void 0 ? void 0 : contentType.includes('multipart/form-data')) &&
+                            !contentType.includes('boundary')) {
+                            headers.delete('Content-Type');
+                            headers.delete('content-type');
+                            options.headers = headers;
+                        }
                         const request = new Request(resource, options);
                         if (request.url.startsWith(`${cap.getServerUrl()}/`)) {
                             return win.CapacitorWebFetch(resource, options);
