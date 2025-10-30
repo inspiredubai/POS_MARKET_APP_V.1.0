@@ -3330,9 +3330,6 @@
         <attr name="android:inflatedId"/>
         <attr name="android:id"/>
     </declare-styleable>
-    <declare-styleable name="bridge_fragment">
-    <attr format="string" name="start_dir"/>
-  </declare-styleable>
     <declare-styleable name="zxing_camera_preview">
     <attr format="dimension" name="zxing_framing_rect_width"/>
     <attr format="dimension" name="zxing_framing_rect_height"/>
