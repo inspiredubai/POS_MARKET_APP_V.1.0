@@ -5,6 +5,7 @@ const config: CapacitorConfig = {
   appName: 'POS_Market',
   webDir: 'www',
   server: {
+    androidScheme: 'http',
     allowNavigation: [
       'http://194.233.95.37:8064/api/*',
       'http://194.233.95.37:8085/api/*',

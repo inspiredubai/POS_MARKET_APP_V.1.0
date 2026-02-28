@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
 
     this.loginApi.loginRequest(payload).subscribe({
       next: (res: any) => {
-        if (res?.valid) {
+        if (res) {
           this.router.navigate(['/dashboard/']);
           this.loading = false;
         } else {
