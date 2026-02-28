@@ -10,7 +10,6 @@ const config: CapacitorConfig = {
       'http://194.233.95.37:8064/api/*',
       'http://194.233.95.37:8085/api/*',
     ],
-    cleartext: true,
   },
 };
 
